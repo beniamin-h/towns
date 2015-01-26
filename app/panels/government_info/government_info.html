@@ -1,0 +1,21 @@
+<div class="government_info">
+    <div class="top_menu" ng-show="active_menu.value == 'home'">
+        <div ng-click="changeActiveMenu('build')" class="button build">Build</div>
+    </div>
+    <div class="build_menu" ng-show="active_menu.value == 'build'">
+        <div ng-click="prev_menu = active_menu.value; onBuildClicked('SimpleField');"
+             class="button simple_field">Simple field</div>
+        <div ng-click="prev_menu = active_menu.value; onBuildClicked('ImmigrantsCamp');"
+             class="button grass_shelter">Immigrants camp</div>
+        <div ng-click="prev_menu = active_menu.value; changeActiveMenu('home');" class="button back">&laquo; Back</div>
+    </div>
+    <div class="cancel_menu" ng-show="active_menu.value == 'cancel'">
+        <div ng-click="changeActiveMenu(prev_menu); onCancelClicked();" class="button cancel">&laquo; Cancel</div>
+    </div>
+    <div class="menu_level_4">
+
+    </div>
+    <div class="menu_level_5">
+
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="towns" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="towns" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="towns" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="towns" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>My AngularJS App</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="layout/layout.css">
+  <link rel="stylesheet" href="map/map.css">
+  <link rel="stylesheet" href="panels/building_info/building_info.css">
+  <link rel="stylesheet" href="panels/population_info/population_info.css">
+  <link rel="stylesheet" href="panels/government_info/government_info.css">
+  <link rel="stylesheet" href="prop_panel/prop_panel.css">
+  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div ng-include="'layout/layout.html'" ng-controller="LayoutCtrl"></div>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="app.js"></script>
+  <script src="utils/array_utils.js"></script>
+  <script src="utils/formatters.js"></script>
+  <script src="services/map_provider.js"></script>
+  <script src="services/population_provider.js"></script>
+  <script src="services/resources_provider.js"></script>
+  <script src="services/buildings_provider.js"></script>
+  <script src="services/build_ins_provider.js"></script>
+  <script src="core/buildings/immigrants_camp.js"></script>
+  <script src="core/buildings/simple_field.js"></script>
+  <script src="core/configs/population.js"></script>
+  <script src="core/errors/errors.js"></script>
+  <script src="core/generic/building.js"></script>
+  <script src="core/generic/environment_block.js"></script>
+  <script src="core/generic/government.js"></script>
+  <script src="core/generic/job.js"></script>
+  <script src="core/generic/jobs_list.js"></script>
+  <script src="core/generic/local_market.js"></script>
+  <script src="core/generic/person.js"></script>
+  <script src="core/generic/person_decider.js"></script>
+  <script src="core/jobs/build.js"></script>
+  <script src="core/jobs/cultivate_field.js"></script>
+  <script src="core/jobs/harvest_field.js"></script>
+  <script src="layout/layout.js"></script>
+  <script src="init/init.js"></script>
+  <script src="map/map.js"></script>
+  <script src="prop_panel/prop_panel.js"></script>
+  <script src="prop_panel/prop_panel_provider.js"></script>
+  <script src="panels/building_info/building_info.js"></script>
+  <script src="panels/building_info/buildings/farm/farm_panel.js"></script>
+  <script src="panels/government_info/government_info.js"></script>
+  <script src="panels/government_info/government_info_provider.js"></script>
+  <script src="panels/population_info/population_info.js"></script>
+  <script src="panels/resources_info/resources_info.js"></script>
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+</body>
+</html>

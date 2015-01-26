@@ -1,0 +1,13 @@
+/* app css stylesheet */
+
+.map-ctrl {
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.prop-panel-ctrl {
+  float: left;
+  width: 300px;
+  margin-top: 10px;
+}
