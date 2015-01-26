@@ -1,0 +1,14 @@
+<tabset justified="true" class="prop_panel">
+    <tab active="selected_prop_panel_tab.government" heading="G">
+        <div class="tab_body" ng-include="'panels/government_info/government_info.html'" ng-controller="GovernmentInfo"></div>
+    </tab>
+    <tab active="selected_prop_panel_tab.population" heading="P">
+        <div class="tab_body" ng-include="'panels/population_info/population_info.html'" ng-controller="PopulationInfo"></div>
+    </tab>
+    <tab active="selected_prop_panel_tab.resources" heading="R">
+        <div class="tab_body" ng-include="'panels/resources_info/resources_info.html'" ng-controller="ResourcesInfo"></div>
+    </tab>
+    <tab active="selected_prop_panel_tab.building" heading="B">
+        <div class="tab_body" ng-include="'panels/building_info/building_info.html'" ng-controller="BuildingInfo"></div>
+    </tab>
+</tabset>

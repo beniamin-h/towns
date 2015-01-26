@@ -1,0 +1,44 @@
+/* app css stylesheet */
+
+.map-blocks {
+  width: 1000px;
+  height: 800px;
+  border: 1px solid black;
+  box-sizing: content-box;
+  background-color: #040;
+}
+
+.map-block {
+  float: left;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #030;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+}
+
+.map-block.clickable:hover {
+  border-color: #bbb;
+  cursor: pointer;
+}
+
+.map-block .tooltip-inner {
+  text-align: left;
+  cursor: default;
+}
+
+.map-block .building {
+  height: 100%;
+  width: 100%;
+}
+
+.map-block .SimpleField {
+  background-image: url('../images/icons/grass.svg');
+}
+
+.map-block .ImmigrantsCamp {
+  background-image: url('../images/icons/campfire.svg');
+}
+

@@ -1,0 +1,13 @@
+<div class="map-blocks" ng-init="init()"
+     ng-class="{'select_new_building_position': selected_mask.value == 'select_new_building_position'}">
+    <div class="map-block" ng-repeat="block in blocks"
+         ng-class="[isClickable(block)]"
+         ng-click="blockClicked(block)">
+        <div ng-if="block.building" class="building"
+             ng-class="[block.building.code]"
+             ng-style="{'opacity': getBlockOpacity(block)}"
+             tooltip-html-unsafe="<b>{{ block.building.name }}</b><br />
+                <span>{{ (block.building.inhabitants).reduce(implode, '') }}</span>"
+             tooltip-placement="right"></div>
+    </div>
+</div>
