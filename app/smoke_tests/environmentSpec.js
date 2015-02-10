@@ -1882,7 +1882,7 @@ describe('Environment', function () {
 
         describe('if it has any occurrence_requirements and occurrence_impact and' +
         '_checkResourceOccurrenceRequirements returns true', function () {
-          
+
         });
       });
 

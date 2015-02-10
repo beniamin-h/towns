@@ -1,4 +1,4 @@
-<tabset justified="true" class="prop_panel">
+<tabset justified="true" class="prop_panel" ng-init="_initPropPanel()">
     <tab active="selected_prop_panel_tab.government" heading="G">
         <div class="tab_body" ng-include="'panels/government_info/government_info.html'" ng-controller="GovernmentInfo"></div>
     </tab>

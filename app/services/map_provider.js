@@ -7,7 +7,6 @@ angular.module('towns').factory('mapProvider', ['_map_config', 'Math', 'ArrayUti
 
   this.blocks = [];
   this.selected_block = null;
-  this.selected_mask_obj = null;
 
   return {
     getWidth: function () {
@@ -80,15 +79,6 @@ angular.module('towns').factory('mapProvider', ['_map_config', 'Math', 'ArrayUti
 
         throw new Errors.noEmptyMapBlocksError();
       }
-    },
-    setSelectedMaskObj: function (selected_mask_obj) {
-      that.selected_mask_obj = selected_mask_obj;
-    },
-    selectMask: function (selected_mask) {
-      that.selected_mask_obj.value = selected_mask;
-    },
-    getSelectedMask: function () {
-      return that.selected_mask_obj.value;
     },
     setBlockBuilding: function (block_index, building) {
       that.blocks[block_index].building = building;
