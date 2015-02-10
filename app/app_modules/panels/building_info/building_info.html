@@ -1,4 +1,4 @@
-<div class="building_info">
+<div class="building_info" ng-init="_initBuildingInfo()">
     <div>{{ getSelectedBuilding().name }} {{ getBuildingConstructingProgress() }}</div>
     <div ng-show="getSelectedBuilding().inhabitants.length">Inhabitants:</div>
     <div ng-repeat="person in getSelectedBuilding().inhabitants"
