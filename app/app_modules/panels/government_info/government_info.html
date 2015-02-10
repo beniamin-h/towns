@@ -10,7 +10,7 @@
         <div ng-click="prev_menu = active_menu; changeActiveMenu('home');" class="button back">&laquo; Back</div>
     </div>
     <div class="cancel_menu" ng-show="active_menu == 'cancel'">
-        <div ng-click="changeActiveMenu(prev_menu); onCancelClicked();" class="button cancel">&laquo; Cancel</div>
+        <div ng-click="changeActiveMenu(prev_menu); onCancelClicked(prev_menu);" class="button cancel">&laquo; Cancel</div>
     </div>
     <div class="menu_level_4">
 

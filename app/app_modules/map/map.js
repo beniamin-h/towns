@@ -29,10 +29,6 @@ angular.module('towns.map', ['ui.bootstrap'])
 
   // ------------------- LISTENERS -------------------
 
-  $scope.$on('mapBlockSelected', function (event, block) {
-    select_block(block);
-  });
-
   $scope.$on('enterBuildMode', function (event, building_class) {
     $scope.selected_mask = 'selecting_new_building_position';
   });
@@ -53,6 +49,14 @@ angular.module('towns.map', ['ui.bootstrap'])
   };
 
   $scope.blockClicked = function (block) {
-    $rootScope.$broadcast('mapBlockClicked', block);
+    if ($scope.selected_mask == 'selecting_map_block') {
+      if (block.building) {
+        select_block(block);
+        $rootScope.$broadcast('buildingSelected', block.building);
+      }
+    }
+    if ($scope.selected_mask == 'selecting_new_building_position') {
+        $rootScope.$broadcast('newBuildingPositionSelected', block);
+    }
   };
 }]);

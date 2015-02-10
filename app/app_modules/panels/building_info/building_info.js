@@ -4,8 +4,10 @@ angular.module('towns.building_info', ['ui.bootstrap'])
 
 .controller('BuildingInfo', ['$scope', 'mapProvider', 'populationProvider', 'Math', 'Formatters',
     function($scope, mapProvider, populationProvider, Math, Formatters) {
-  $scope.getSelectedBlock = function () {
-    return mapProvider.getSelectedBlock();
+
+  $scope.getSelectedBuilding = function () {
+    var selected_block = mapProvider.getSelectedBlock();
+    return selected_block ? selected_block.building : {};
   };
 
   $scope.getBuildingConstructingProgress = function () {
@@ -22,7 +24,7 @@ angular.module('towns.building_info', ['ui.bootstrap'])
 
   $scope.floatToPercents = function () {
     return Formatters.floatToPercents.apply(Formatters, arguments);
-  }
+  };
 
   $scope.getNeedFulfilmentColor = function (need_fulfilment) {
     return need_fulfilment > 0.5 ? 'green' : (need_fulfilment > 0.3 ? '' : 'red');

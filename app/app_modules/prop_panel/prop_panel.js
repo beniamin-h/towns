@@ -17,7 +17,7 @@ angular.module('towns.prop_panel', ['ui.bootstrap'])
 
   // ------------------- LISTENERS -------------------
 
-  $scope.$on('buildingBlockClicked', function (event, block) {
+  $scope.$on('buildingSelected', function (event, builing) {
     $scope.selectPropPanelTab('building');
   });
 
