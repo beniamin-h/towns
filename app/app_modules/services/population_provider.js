@@ -9,7 +9,6 @@ angular.module('towns').factory('populationProvider', ['Person', 'Math', 'Popula
   };
 
   this.people = [];
-  this.selected_person = null;
 
   this.processTick = function () {
     for (var i = this.people.length - 1; i >= 0; i--) {
@@ -30,12 +29,6 @@ angular.module('towns').factory('populationProvider', ['Person', 'Math', 'Popula
     },
     getAll: function () {
       return that.people;
-    },
-    selectPerson: function (person) {
-      that.selected_person = person;
-    },
-    getSelectedPerson: function () {
-      return that.selected_person;
     },
     processTick: function () {
       that.processTick();

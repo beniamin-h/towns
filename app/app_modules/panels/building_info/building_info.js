@@ -2,24 +2,39 @@
 
 angular.module('towns.building_info', ['ui.bootstrap'])
 
-.controller('BuildingInfo', ['$scope', 'mapProvider', 'populationProvider', 'Math', 'Formatters',
-    function($scope, mapProvider, populationProvider, Math, Formatters) {
+.controller('BuildingInfo', ['$scope', '$rootScope', 'Math', 'Formatters',
+    function($scope, $rootScope, Math, Formatters) {
+
+  var selected_building;
+
+  // ------------------- INIT -------------------
+
+  $scope._initBuildingInfo = function() {
+
+  };
+
+  // ------------------- LISTENERS -------------------
+
+  $scope.$on('buildingSelected', function (event, building) {
+    selected_building = building;
+  });
+
+  // ------------------- SCOPE METHODS -------------------
 
   $scope.getSelectedBuilding = function () {
-    var selected_block = mapProvider.getSelectedBlock();
-    return selected_block ? selected_block.building : {};
+    return selected_building || {};
   };
 
   $scope.getBuildingConstructingProgress = function () {
-    if (mapProvider.getSelectedBlock()) {
-      var progress = mapProvider.getSelectedBlock().building.constructing_progress;
+    if (selected_building) {
+      var progress = selected_building.constructing_progress;
       return progress < 1.0 ? ['(constructing: ', Math.round(progress * 100), '%)'].join('') : '';
     }
   };
 
   $scope.personClicked = function (person) {
     $scope.selectedPerson = person;
-    populationProvider.selectPerson(person);
+    $rootScope.$broadcast('personSelected', person);
   };
 
   $scope.floatToPercents = function () {
