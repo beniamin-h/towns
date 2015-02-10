@@ -1886,43 +1886,89 @@ describe('Environment', function () {
         });
       });
 
-      describe('returns resources amounts for fixture', function () {
+      describe('for fixture_1', function () {
 
-        var fixture = {
-          humus: {
-            growth_speed: 0.05,
-            growth_depends_on_neighbor_blocks: false,
-            growth_seasons_impact: {
-              winter: 0.8,
-              spring: 1.0,
-              summer: 1.0,
-              autumn: 0.8
+        var _random, _Math,
+          fixture_1 = {
+            resources : {
+              res_abc: {
+                growth_speed: 0.05,
+                growth_depends_on_neighbor_blocks: false,
+                growth_seasons_impact: {
+                  winter: 0.8,
+                  spring: 1.0,
+                  summer: 1.0,
+                  autumn: 0.8
+                },
+                max_amount: 500,
+                exploitable_resources: {}
+              },
+              res_xyz: {
+                growth_speed: 0.05,
+                growth_depends_on_neighbor_blocks: false,
+                growth_seasons_impact: {
+                  winter: 0.8,
+                  spring: 1.0,
+                  summer: 1.0,
+                  autumn: 0.8
+                },
+                max_amount: 10,
+                exploitable_resources: {},
+                occurrence_impact: {
+                  res_abc: 0.7
+                }
+              }
             },
-            growth_other_resources_impact: {
-              water: 0.9,
-              stone: 0.3,
-              humus: 0.1,
-              trees: 1.0,
-              grass: 1.0,
-              grains: 0.5,
-              games: 0.7
-            },
-            max_amount: 500000,
-            exploitable_resources: {},
-            occurrence_requirements: {
-              water: 0.1
-            },
-            occurrence_impact: {
-              water: 0.1
-            }
-          }
-        };
+            resources_placement_order: ['res_abc', 'res_xyz']
+          };
 
-        it('returns all resources amounts', function () {
+        beforeEach(inject(function (_Math_) {
+          _Math = _Math_;
+          _random = _Math_.random;
+        }));
+
+        afterEach(inject(function () {
+          _Math.random = _random;
+        }));
+
+        it('returns max amounts if Math.random returns always 1.0', function () {
+
+          env.resources = fixture_1.resources;
+          env.resources_placement_order = fixture_1.resources_placement_order;
+          _Math.random = function () { return 1.0; };
 
           var amounts = env.getResourcesInitialAmounts();
 
+          for (var res_name in fixture_1.resources) {
+            expect(amounts[res_name]).toBe(fixture_1.resources[res_name].max_amount);
+          }
+
         });
+
+        it('for res_abc returns 250 if Math.random returns always 0.5', function () {
+
+          env.resources = fixture_1.resources;
+          env.resources_placement_order = fixture_1.resources_placement_order;
+          _Math.random = function () { return 0.5; };
+
+          var amounts = env.getResourcesInitialAmounts();
+
+          expect(amounts['res_abc']).toBe(250);
+
+        });
+
+        it('for res_xyz returns 6.5 if Math.random returns always 0.5', function () {
+
+          env.resources = fixture_1.resources;
+          env.resources_placement_order = fixture_1.resources_placement_order;
+          _Math.random = function () { return 0.5; };
+
+          var amounts = env.getResourcesInitialAmounts();
+
+          expect(amounts['res_xyz']).toBe(6.5);
+
+        });
+
       });
     });
 
