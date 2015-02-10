@@ -1,19 +1,16 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('EnvironmentBlock', function () {
+angular.module('towns').factory('EnvironmentBlock', ['Environment', function (Environment) {
 
-  var EnvironmentBlock = function (map_index, owner) {
+  var EnvironmentBlock = function (map_index) {
     this.owner = owner;
     this.map_index = map_index;
-    this.available_jobs = [];
-    this.resources = {};
+    this.resources = Environment.getResourcesInitialAmounts();
   };
 
-  EnvironmentBlock.prototype.type = null;
   EnvironmentBlock.prototype.owner = null;
   EnvironmentBlock.prototype.map_index = -1;
-  EnvironmentBlock.prototype.available_jobs = [];
   EnvironmentBlock.prototype.resources = {};
 
   EnvironmentBlock.prototype.gatherResources = function (person) {
@@ -25,4 +22,4 @@ angular.module('towns').factory('EnvironmentBlock', function () {
   };
 
   return EnvironmentBlock;
-});
+}]);
