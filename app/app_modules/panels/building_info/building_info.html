@@ -1,7 +1,7 @@
 <div class="building_info">
-    <div>{{ getSelectedBlock().building.name }} {{ getBuildingConstructingProgress() }}</div>
-    <div ng-show="getSelectedBlock().building.inhabitants.length">Inhabitants:</div>
-    <div ng-repeat="person in getSelectedBlock().building.inhabitants"
+    <div>{{ getSelectedBuilding().name }} {{ getBuildingConstructingProgress() }}</div>
+    <div ng-show="getSelectedBuilding().inhabitants.length">Inhabitants:</div>
+    <div ng-repeat="person in getSelectedBuilding().inhabitants"
          ng-click="personClicked(person)">{{ person.name }}
         <span ng-show="person.is_human">
         (<span ng-class="getNeedFulfilmentColor(person.needs.food)"
@@ -14,11 +14,11 @@
                >W:{{ floatToPercents(person.needs.work) }}</span>)
         </span>
     </div>
-    <div ng-show="getSelectedBlock().building.currently_available_jobs.length">Jobs:</div>
-    <div ng-repeat="job in getSelectedBlock().building.currently_available_jobs">
+    <div ng-show="getSelectedBuilding().currently_available_jobs.length">Jobs:</div>
+    <div ng-repeat="job in getSelectedBuilding().currently_available_jobs">
         {{ job.name }}: {{ job.worker.name }} {{ floatToPercents(job.current_progress) }}%
     </div>
-    <div ng-if="getSelectedBlock().building.type == 'farm'">
+    <div ng-if="getSelectedBuilding().type == 'farm'">
         <div ng-include="'app_modules/panels/building_info/buildings/farm/farm_panel.html'" ng-controller="FarmPanel"></div>
     </div>
 </div>

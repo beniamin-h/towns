@@ -2,10 +2,10 @@
 
 angular.module('towns.government_info', [])
 
-.controller('GovernmentInfo', ['$scope', '$rootScope', 'governmentInfoProvider', 'buildingsProvider',
-    function($scope, $rootScope, governmentInfoProvider, buildingsProvider) {
+.controller('GovernmentInfo', ['$scope', '$rootScope', 'Government', 'buildingsProvider',
+    function($scope, $rootScope, Government, buildingsProvider) {
 
-  var selecting_new_building_position = false;
+  var selected_building_class;
 
   // ------------------- INIT -------------------
 
@@ -15,20 +15,11 @@ angular.module('towns.government_info', [])
 
   // ------------------- LISTENERS -------------------
 
-  $scope.$on('mapBlockClicked', function (event, block) {
-    if (selecting_new_building_position) {
-      if (!block.building) {
-        buildingsProvider.build(governmentInfoProvider.getSelectedBuildingClass(),
-          block.index, governmentInfoProvider.getGovernment());
-        $scope.active_menu = 'build';
-        selecting_new_building_position = false;
-        $rootScope.$broadcast('leaveBuildMode');
-      }
-    } else {
-      if (block.building) {
-        $rootScope.$broadcast('buildingBlockClicked', block);
-        $rootScope.$broadcast('mapBlockSelected', block);
-      }
+  $scope.$on('newBuildingPositionSelected', function (event, block) {
+    if (!block.building) {
+      buildingsProvider.build(selected_building_class, block.index, Government.getInstance());
+      $scope.active_menu = 'build';
+      $rootScope.$broadcast('leaveBuildMode');
     }
   });
 
@@ -39,15 +30,13 @@ angular.module('towns.government_info', [])
   };
 
   $scope.onBuildClicked = function (building_class) {
-    selecting_new_building_position = true;
-    governmentInfoProvider.setSelectedBuildingClass(building_class);
+    selected_building_class = building_class;
     $rootScope.$broadcast('enterBuildMode', building_class);
     $scope.changeActiveMenu('cancel');
   };
 
-  $scope.onCancelClicked = function () {
-    if (selecting_new_building_position) {
-      selecting_new_building_position = false;
+  $scope.onCancelClicked = function (prev_menu) {
+    if (prev_menu == 'build') {
       $rootScope.$broadcast('leaveBuildMode');
       $scope.changeActiveMenu('build');
     }
