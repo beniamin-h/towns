@@ -12,12 +12,12 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="layout/layout.css">
-  <link rel="stylesheet" href="map/map.css">
-  <link rel="stylesheet" href="panels/building_info/building_info.css">
-  <link rel="stylesheet" href="panels/population_info/population_info.css">
-  <link rel="stylesheet" href="panels/government_info/government_info.css">
-  <link rel="stylesheet" href="prop_panel/prop_panel.css">
+  <link rel="stylesheet" href="app_modules/layout/layout.css">
+  <link rel="stylesheet" href="app_modules/map/map.css">
+  <link rel="stylesheet" href="app_modules/panels/building_info/building_info.css">
+  <link rel="stylesheet" href="app_modules/panels/population_info/population_info.css">
+  <link rel="stylesheet" href="app_modules/panels/government_info/government_info.css">
+  <link rel="stylesheet" href="app_modules/prop_panel/prop_panel.css">
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -26,7 +26,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div ng-include="'layout/layout.html'" ng-controller="LayoutCtrl"></div>
+  <div ng-include="'app_modules/layout/layout.html'" ng-controller="LayoutCtrl"></div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -36,13 +36,13 @@
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="app.js"></script>
-  <script src="utils/array_utils.js"></script>
-  <script src="utils/formatters.js"></script>
-  <script src="services/map_provider.js"></script>
-  <script src="services/population_provider.js"></script>
-  <script src="services/resources_provider.js"></script>
-  <script src="services/buildings_provider.js"></script>
-  <script src="services/build_ins_provider.js"></script>
+  <script src="app_modules/utils/array_utils.js"></script>
+  <script src="app_modules/utils/formatters.js"></script>
+  <script src="app_modules/services/map_provider.js"></script>
+  <script src="app_modules/services/population_provider.js"></script>
+  <script src="app_modules/services/resources_provider.js"></script>
+  <script src="app_modules/services/buildings_provider.js"></script>
+  <script src="app_modules/services/build_ins_provider.js"></script>
   <script src="core/buildings/immigrants_camp.js"></script>
   <script src="core/buildings/simple_field.js"></script>
   <script src="core/configs/population.js"></script>
@@ -58,18 +58,15 @@
   <script src="core/jobs/build.js"></script>
   <script src="core/jobs/cultivate_field.js"></script>
   <script src="core/jobs/harvest_field.js"></script>
-  <script src="layout/layout.js"></script>
-  <script src="init/init.js"></script>
-  <script src="map/map.js"></script>
-  <script src="prop_panel/prop_panel.js"></script>
-  <script src="panels/building_info/building_info.js"></script>
-  <script src="panels/building_info/buildings/farm/farm_panel.js"></script>
-  <script src="panels/government_info/government_info.js"></script>
-  <script src="panels/government_info/government_info_provider.js"></script>
-  <script src="panels/population_info/population_info.js"></script>
-  <script src="panels/resources_info/resources_info.js"></script>
-  <script src="components/version/version.js"></script>
-  <script src="components/version/version-directive.js"></script>
-  <script src="components/version/interpolate-filter.js"></script>
+  <script src="app_modules/layout/layout.js"></script>
+  <script src="app_modules/init/init.js"></script>
+  <script src="app_modules/map/map.js"></script>
+  <script src="app_modules/prop_panel/prop_panel.js"></script>
+  <script src="app_modules/panels/building_info/building_info.js"></script>
+  <script src="app_modules/panels/building_info/buildings/farm/farm_panel.js"></script>
+  <script src="app_modules/panels/government_info/government_info.js"></script>
+  <script src="app_modules/panels/government_info/government_info_provider.js"></script>
+  <script src="app_modules/panels/population_info/population_info.js"></script>
+  <script src="app_modules/panels/resources_info/resources_info.js"></script>
 </body>
 </html>
