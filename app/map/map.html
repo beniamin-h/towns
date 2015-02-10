@@ -1,5 +1,5 @@
-<div class="map-blocks" ng-init="init()"
-     ng-class="{'select_new_building_position': selected_mask.value == 'select_new_building_position'}">
+<div class="map-blocks" ng-init="_initMap()"
+     ng-class="{'select_new_building_position': selected_mask == 'selecting_new_building_position'}">
     <div class="map-block" ng-repeat="block in blocks"
          ng-class="[isClickable(block)]"
          ng-click="blockClicked(block)">
