@@ -35,10 +35,10 @@
 }
 
 .map-block .SimpleField {
-  background-image: url('../images/icons/grass.svg');
+  background-image: url('/app/images/icons/grass.svg');
 }
 
 .map-block .ImmigrantsCamp {
-  background-image: url('../images/icons/campfire.svg');
+  background-image: url('/app/images/icons/campfire.svg');
 }
 
