@@ -6,6 +6,8 @@ angular.module('towns', [
   'towns.init',
   'towns.layout',
   'towns.map',
+  'towns.environment',
+  'towns.main_panel',
   'towns.prop_panel',
   'towns.population_info',
   'towns.resources_info',

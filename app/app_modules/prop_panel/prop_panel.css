@@ -2,4 +2,7 @@
 
 .prop_panel .tab_body {
   padding: 10px;
+  min-height: 810px;
+  border: 1px solid #ddd;
+  border-top-width: 0px;
 }

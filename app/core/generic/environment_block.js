@@ -4,12 +4,10 @@
 angular.module('towns').factory('EnvironmentBlock', ['Environment', function (Environment) {
 
   var EnvironmentBlock = function (map_index) {
-    this.owner = owner;
     this.map_index = map_index;
     this.resources = Environment.getResourcesInitialAmounts();
   };
 
-  EnvironmentBlock.prototype.owner = null;
   EnvironmentBlock.prototype.map_index = -1;
   EnvironmentBlock.prototype.resources = {};
 
