@@ -2,12 +2,14 @@
 
 angular.module('towns.init', [])
 
-.controller('InitCtrl', ['populationProvider', 'buildingsProvider', 'mapProvider', 'PopulationConfig',
-            '$interval', '$rootScope',
-    function(populationProvider, buildingsProvider, mapProvider, PopulationConfig,
+.controller('InitCtrl', ['populationProvider', 'buildingsProvider', 'mapProvider',
+                         'environmentProvider', 'PopulationConfig',
+                         '$interval', '$rootScope',
+    function(populationProvider, buildingsProvider, mapProvider, environmentProvider, PopulationConfig,
              $interval, $rootScope) {
 
   mapProvider.initMap();
+  environmentProvider.initEnvironment();
   buildingsProvider.initBuildingsProvider();
 
   populationProvider.setupInitialPopulation(PopulationConfig.initial_population_count);

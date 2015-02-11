@@ -1,9 +1,8 @@
 /* app css stylesheet */
 
-.map-ctrl {
+.main-panel-ctrl {
   float: left;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin: 10px;
 }
 
 .prop-panel-ctrl {

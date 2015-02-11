@@ -3,7 +3,7 @@
  */
 angular.module('towns').value('EnvironmentConfig', {
     map_dim: {
-      x: 20,
-      y: 20
+      x: 40,
+      y: 32
     }
 });

@@ -1,0 +1,8 @@
+<tabset justified="false" class="main_panel" ng-init="_initMainPanel()">
+    <tab active="selected_main_panel_tab.map" heading="Town">
+        <div class="tab_body" ng-include="'app_modules/map/map.html'" ng-controller="MapCtrl"></div>
+    </tab>
+    <tab active="selected_main_panel_tab.environment" heading="Environment">
+        <div class="tab_body" ng-include="'app_modules/environment/environment.html'" ng-controller="EnvironmentCtrl"></div>
+    </tab>
+</tabset>
