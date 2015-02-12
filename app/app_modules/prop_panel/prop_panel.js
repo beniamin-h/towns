@@ -11,7 +11,8 @@ angular.module('towns.prop_panel', ['ui.bootstrap'])
       government: true,
       population: false,
       resources: false,
-      building: false
+      building: false,
+      environment: false
     };
   };
 
@@ -19,6 +20,10 @@ angular.module('towns.prop_panel', ['ui.bootstrap'])
 
   $scope.$on('buildingSelected', function (event, builing) {
     $scope.selectPropPanelTab('building');
+  });
+
+  $scope.$on('envBlockClicked', function (event, builing) {
+    $scope.selectPropPanelTab('environment');
   });
 
   // ------------------- SCOPE METHODS -------------------

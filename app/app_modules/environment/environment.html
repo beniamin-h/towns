@@ -1,5 +1,7 @@
-<div class="env-blocks" ng-init="_environmentMap()">
+<div class="env-blocks" ng-init="_environmentInit()" ng-mouseleave="onEnvMapLeave()">
     <div class="env-block" ng-repeat="block in blocks"
+         ng-class="block.code ? 'env-block-' + block.code : ''"
+         ng-mouseenter="onEnvBlockHovered(block)"
          ng-click="envBlockClicked(block)">
     </div>
 </div>

@@ -1,0 +1,5 @@
+<div class="population_info">
+    <div ng-repeat="(resource, amount) in getSelectedEnvironmentBlockResources()">
+        {{ resource }}: {{ roundAmount(amount) }}
+    </div>
+</div>

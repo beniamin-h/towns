@@ -14,8 +14,15 @@ angular.module('towns').factory('environmentProvider', ['EnvironmentBlock', 'Env
       return EnvironmentConfig.map_dim.y;
     },
     initEnvironment: function () {
-      for (var i = 0; i < this.getMapWidth() * this.getMapHeight(); i++) {
-        that.blocks.push(new EnvironmentBlock(i));
+      var blocks_count = this.getMapWidth() * this.getMapHeight(),
+        map_center_index = this.getBlockIndexByXY(this.getMapWidth() / 2, this.getMapHeight() / 2);
+      for (var i = 0; i < blocks_count; i++) {
+        var env_block = new EnvironmentBlock(i);
+        if (i == map_center_index) {
+          env_block.code = 'castle';
+          env_block.explored = true;
+        }
+        that.blocks.push(env_block);
       }
     },
     getBlockIndexByXY: function (x, y) {
