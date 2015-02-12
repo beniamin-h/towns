@@ -10,6 +10,8 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', function (En
 
   EnvironmentBlock.prototype.map_index = -1;
   EnvironmentBlock.prototype.resources = {};
+  EnvironmentBlock.prototype.explored = false;
+  EnvironmentBlock.prototype.code = '';
 
   EnvironmentBlock.prototype.gatherResources = function (person) {
 

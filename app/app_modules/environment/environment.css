@@ -5,7 +5,7 @@
   height: 800px;
   border: 1px solid black;
   box-sizing: content-box;
-  background-color: #040;
+  background-color: #000;
 }
 
 .env-block {
@@ -20,5 +20,10 @@
 }
 
 .env-block:hover {
-  border-color: #030;
+  border-color: #999;
+}
+
+.env-block.env-block-castle {
+  background-image: url(/app/images/icons/castle.svg);
+  background-size: 25px;
 }
