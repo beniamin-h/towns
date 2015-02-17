@@ -500,6 +500,12 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
   var environment = new Environment();
 
   return {
+    getResourcesInfo: function () {
+      return environment.resources;
+    },
+    getResourceInfo: function (res_name) {
+      return environment.resources[res_name];
+    },
     getResourcesInitialAmounts: function () {
       return environment.getResourcesInitialAmounts();
     },
