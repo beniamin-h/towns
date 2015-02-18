@@ -12,6 +12,8 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', function (En
   EnvironmentBlock.prototype.resources = {};
   EnvironmentBlock.prototype.explored = false;
   EnvironmentBlock.prototype.code = '';
+  EnvironmentBlock.prototype.gather_base_divisor = 1000;
+  EnvironmentBlock.prototype.max_gather_amount = 10;
 
   EnvironmentBlock.prototype.gatherResources = function (person) {
     var gathered_resources = {};
@@ -19,20 +21,42 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', function (En
       if (!this.resources[res_name]) {
         continue;
       }
-      var gather_env_ratio = this.resources[res_name] / Environment.getResourceInfo(res_name).max_amount * 10;
+
+      var gather_amount = this._calculateGatherAmount(
+        this._calculateGatherRatio(
+          this._calculateGatherEnvRatio(
+            this.resources[res_name], Environment.getResourceInfo(res_name).max_amount),
+          this._calculateGatherPersonRatio(person)),
+        this.resources[res_name]);
+
+      this.resources[res_name] -= gather_amount;
       for (var exploitable_resource_name in Environment.getResourceInfo(res_name).exploitable_resources) {
         gathered_resources[exploitable_resource_name] = gathered_resources[exploitable_resource_name] || 0;
-        gathered_resources[exploitable_resource_name] += gather_env_ratio *
+        gathered_resources[exploitable_resource_name] += gather_amount *
           Environment.getResourceInfo(res_name).exploitable_resources[exploitable_resource_name];
-        if (gather_env_ratio <= this.resources[res_name]) {
-          this.resources[res_name] -= gather_env_ratio;
-        } else {
-          this.resources[res_name] = 0;
-        }
       }
     }
 
     return gathered_resources;
+  };
+
+  EnvironmentBlock.prototype._calculateGatherEnvRatio = function (resource_amount, resource_max_amount) {
+    return resource_amount / resource_max_amount;
+  };
+
+  EnvironmentBlock.prototype._calculateGatherPersonRatio = function (person) {
+    return person.strength;
+  };
+
+  EnvironmentBlock.prototype._calculateGatherRatio = function (gather_env_ratio, gather_person_ratio) {
+    return (gather_env_ratio * (1 - gather_env_ratio) + gather_env_ratio) * gather_person_ratio;
+  };
+
+  EnvironmentBlock.prototype._calculateGatherAmount = function (gather_ratio, res_amount) {
+    var gather_amount = gather_ratio * res_amount / this.gather_base_divisor;
+    gather_amount = gather_amount > this.max_gather_amount ? this.max_gather_amount : gather_amount;
+    gather_amount = gather_amount > res_amount ? res_amount : gather_amount;
+    return gather_amount;
   };
 
   EnvironmentBlock.prototype.operate = function () {

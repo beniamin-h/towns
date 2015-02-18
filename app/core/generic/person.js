@@ -1,8 +1,8 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider',
-    function (PopulationConfig, PersonDecider) {
+angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 'Math',
+    function (PopulationConfig, PersonDecider, Math) {
 
   var names = {
     'male':[
@@ -104,6 +104,7 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider',
   Person.prototype.job = null;
   Person.prototype.happiness = _config.base_initial_happiness;
   Person.prototype.health = _config.base_initial_health;
+  Person.prototype.strength = Math.random();
   Person.prototype.resources = {};
   Person.prototype.buildings = [];
   Person.prototype.childOf = {
