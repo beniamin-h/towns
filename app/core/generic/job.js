@@ -13,11 +13,12 @@ angular.module('towns').factory('Job', ['JobsList', function (JobsList) {
   Job.prototype.giver = null;
   Job.prototype.worker = null;
   Job.prototype.current_progress = 0;
+  Job.prototype.base_progress_increase = 0.1;
   Job.prototype.required_materials = {};
   Job.prototype.required_skills = {};
 
   Job.prototype.can_do = function (person) {
-    return this.giver == person || !this.giver.isInterestedInJob(this);
+    return this.giver == person || !this.giver || !this.giver.isInterestedInJob(this);
   };
 
   Job.prototype.setWorker = function (worker) {

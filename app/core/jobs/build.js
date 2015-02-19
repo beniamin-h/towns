@@ -13,12 +13,13 @@ angular.module('towns').factory('BuildJob', ['Job', function (Job) {
   BuildJob.prototype.constructor = BuildJob;
 
   BuildJob.prototype.name = 'Constructing a building';
+  BuildJob.prototype.base_progress_increase = 0.3334;
 
   BuildJob.prototype['do'] = function (person) {
     Job.prototype.do.apply(this, arguments);
 
     //TODO: this.construction_materials
-    this.workplace.constructing_progress += 0.3334;
+    this.workplace.constructing_progress += this.base_progress_increase;
     this.current_progress = this.workplace.constructing_progress;
     if (this.workplace.constructing_progress >= 1.0) {
       this.workplace.finish_constructing();
