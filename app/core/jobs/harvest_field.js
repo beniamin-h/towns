@@ -13,6 +13,7 @@ angular.module('towns').factory('HarvestFieldJob', ['Job', function (Job) {
   HarvestFieldJob.prototype.constructor = HarvestFieldJob;
 
   HarvestFieldJob.prototype.name = 'Harvesting a field';
+  HarvestFieldJob.prototype.base_progress_increase = 0.25;
 
   HarvestFieldJob.prototype.can_do = function (person) {
     var parent_result = Job.prototype.can_do.apply(this, arguments);
@@ -23,7 +24,7 @@ angular.module('towns').factory('HarvestFieldJob', ['Job', function (Job) {
   HarvestFieldJob.prototype['do'] = function (person) {
     Job.prototype.do.apply(this, arguments);
 
-    this.workplace.harvesting_progress += 0.25;
+    this.workplace.harvesting_progress += this.base_progress_increase;
     this.current_progress = this.workplace.harvesting_progress;
     if (this.workplace.harvesting_progress >= 1.0) {
       this.workplace.finish_harvesting();

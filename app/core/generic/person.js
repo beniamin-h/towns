@@ -93,8 +93,9 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
 
   var _config = PopulationConfig;
 
-  var Person = function (mother, father) {
+  var Person = function (mother, father, env_block) {
     this.born(mother, father);
+    this.current_env_block = env_block;
   };
 
   Person.prototype.is_human = true;
@@ -117,6 +118,7 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     shelter: 1.0,
     work: 1.0
   };
+  Person.prototype.current_env_block = null;
 
 
   Person.prototype.born = function (mother, father) {

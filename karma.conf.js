@@ -22,7 +22,7 @@ module.exports = function(config) {
       'app/app_modules/**/*.js',
       'app/core/**/*.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
-      'app/smoke_tests/*.js'
+      'app/smoke_tests/**/*.js'
     ],
 
 

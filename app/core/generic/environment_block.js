@@ -1,7 +1,8 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('EnvironmentBlock', ['Environment', function (Environment) {
+angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 'GatherJob',
+  function (Environment, JobsList, GatherJob) {
 
   var EnvironmentBlock = function (map_index) {
     this.map_index = map_index;
@@ -14,6 +15,7 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', function (En
   EnvironmentBlock.prototype.code = '';
   EnvironmentBlock.prototype.gather_base_divisor = 1000;
   EnvironmentBlock.prototype.max_gather_amount = 10;
+  EnvironmentBlock.prototype.gather_jobs_count = 50;
 
   EnvironmentBlock.prototype.gatherResources = function (person) {
     var gathered_resources = {};
@@ -57,6 +59,13 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', function (En
     gather_amount = gather_amount > this.max_gather_amount ? this.max_gather_amount : gather_amount;
     gather_amount = gather_amount > res_amount ? res_amount : gather_amount;
     return gather_amount;
+  };
+
+  EnvironmentBlock.prototype.setExplored = function () {
+    this.explored = true;
+    for (var i = 0; i < this.gather_jobs_count; i++) {
+      JobsList.addJob(new GatherJob(this, null));
+    }
   };
 
   EnvironmentBlock.prototype.operate = function () {

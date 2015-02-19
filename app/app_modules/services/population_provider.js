@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('towns').factory('populationProvider', ['Person', 'Math', 'PopulationConfig',
-    function (Person, Math, PopulationConfig) {
+angular.module('towns').factory('populationProvider', ['Person', 'Math', 'PopulationConfig', 'environmentProvider',
+    function (Person, Math, PopulationConfig, environmentProvider) {
   var that = this;
 
   this.config = {
@@ -19,7 +19,7 @@ angular.module('towns').factory('populationProvider', ['Person', 'Math', 'Popula
 
   this.immigrate = function () {
     if (Math.random() < this.config.immigration_rate) {
-      this.people.push(new Person(null, null));
+      this.people.push(new Person(null, null, environmentProvider.getTownBlock()));
     }
   };
 
@@ -35,7 +35,7 @@ angular.module('towns').factory('populationProvider', ['Person', 'Math', 'Popula
     },
     setupInitialPopulation: function (count) {
       for (var i = 0; i < count; i++) {
-        that.people.push(new Person(null, null));
+        that.people.push(new Person(null, null, environmentProvider.getTownBlock()));
       }
     },
     _factory: this

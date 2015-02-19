@@ -5,6 +5,7 @@ angular.module('towns').factory('environmentProvider', ['EnvironmentBlock', 'Env
   var that = this;
 
   this.blocks = [];
+  this.town_block = null;
 
   return {
     getMapWidth: function () {
@@ -20,13 +21,17 @@ angular.module('towns').factory('environmentProvider', ['EnvironmentBlock', 'Env
         var env_block = new EnvironmentBlock(i);
         if (i == map_center_index) {
           env_block.code = 'castle';
-          env_block.explored = true;
+          env_block.setExplored();
+          that.town_block = env_block;
         }
         that.blocks.push(env_block);
       }
     },
     getBlockIndexByXY: function (x, y) {
       return y * EnvironmentConfig.map_dim.x + x;
+    },
+    getTownBlock: function () {
+      return that.town_block;
     },
     getAllBlocks: function () {
       return that.blocks;

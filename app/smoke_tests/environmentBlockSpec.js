@@ -116,7 +116,7 @@ describe('EnvironmentBlock', function () {
       envBlock.resources['grass'] = initial_grass_amount;
       envBlock.resources['grains'] = initial_grains_amount;
 
-      var gathered_resources = envBlock.gatherResources({strength: 1});
+      envBlock.gatherResources({strength: 1});
 
       expect(envBlock.resources['grass']).toBe(initial_grass_amount - 5);
       expect(envBlock.resources['grains']).toBe(initial_grains_amount - 0.019);
