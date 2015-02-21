@@ -136,6 +136,8 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     this.resources = {};
     this.buildings = [];
     this.temporary_resources_needs = {};
+    this.safe_food_amount_min = _config.base_daily_food_consumption * 30;
+    this.safe_food_amount_max = _config.base_daily_food_consumption * 60;
   };
 
   Person.prototype.getRandomName = function (sex) {
@@ -145,8 +147,12 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
   Person.prototype.live = function () {
     this.wear();
     this.eat();
-    this.tryToMakeDecision();
+    if (!this.job) {
+      PersonDecider.findJob(this);
+    }
     this.work();
+    PersonDecider.checkPersonalStorage(this);
+    PersonDecider.makeGenericLiveDecision(this);
   };
 
   Person.prototype.eat = function () {
@@ -160,6 +166,8 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
       this.needs.food -= this.needs.food > _config.base_daily_food_need ?
         _config.base_daily_food_need : this.needs.food;
     }
+    this.needs.food = Math.max(0, this.needs.food);
+    this.needs.food = Math.min(1, this.needs.food);
   };
 
   Person.prototype.wear = function () {
@@ -178,12 +186,6 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
   Person.prototype.work = function () {
     if (this.job) {
       this.job.do(this);
-    }
-  };
-
-  Person.prototype.tryToMakeDecision = function () {
-    if (!this.job) {
-      PersonDecider.findJob(this);
     }
   };
 

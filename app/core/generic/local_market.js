@@ -8,7 +8,14 @@ angular.module('towns').factory('LocalMarket', function () {
   };
 
   LocalMarket.prototype.buy = function (resource_name, amount_to_buy, person) {
+    person.resources[resource_name] = person.resources[resource_name] || 0;
+    person.resources[resource_name] += amount_to_buy;
+    person.money -= amount_to_buy * this.getPrice();
+  };
 
+  LocalMarket.prototype.sell = function (resource_name, amount_to_sell, person) {
+    person.resources[resource_name] -= amount_to_sell;
+    person.money += amount_to_sell * this.getPrice();
   };
 
   LocalMarket.prototype.getPrice = function (resource_name) {
@@ -28,6 +35,9 @@ angular.module('towns').factory('LocalMarket', function () {
   return {
     buy: function (resource_name, amount_to_buy, person) {
       return local_market.buy(resource_name, amount_to_buy, person);
+    },
+    sell: function (resource_name, amount_to_buy, person) {
+      return local_market.sell(resource_name, amount_to_buy, person);
     },
     getPrice: function (resource_name) {
       return local_market.getPrice(resource_name);
