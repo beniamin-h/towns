@@ -22,7 +22,9 @@ angular.module('towns').factory('initProvider', ['populationProvider', 'building
     setupTickProcessInterval: function () {
       var self = this;
       $interval(function () {
+        //var now = new Date();
         self.processTicks();
+        //console.log(new Date() - now);
       }, 1000);
     },
     processTicks: function () {

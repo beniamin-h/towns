@@ -12,9 +12,9 @@ describe('EnvironmentBlock', function () {
     Environment = _Environment_;
   }));
 
-  describe('gatherResources', function () {
+  describe('getMaxResourcesAmountsFromGathering', function () {
 
-    it('for max grass amount and none other resources ' +
+      it('for max grass amount and none other resources ' +
     'returns specified resources amounts', function () {
 
       Environment.getResourceInfo('grass')['exploitable_resources'] = {
@@ -30,12 +30,12 @@ describe('EnvironmentBlock', function () {
       }
       envBlock.resources['grass'] = Environment.getResourceInfo('grass')['max_amount'];
 
-      var gathered_resources = envBlock.gatherResources({strength: 1});
+      var gathered_resources = envBlock.getMaxResourcesAmountsFromGathering({strength: 1});
 
-      expect(gathered_resources['straw']).toBe(0.5);
-      expect(gathered_resources['grass']).toBe(4);
-      expect(gathered_resources['grass_seeds']).toBe(0.25);
-      expect(gathered_resources['grains']).toBe(0.05);
+      expect(gathered_resources.gathered_amounts['straw']).toBe(0.5);
+      expect(gathered_resources.gathered_amounts['grass']).toBe(4);
+      expect(gathered_resources.gathered_amounts['grass_seeds']).toBe(0.25);
+      expect(gathered_resources.gathered_amounts['grains']).toBe(0.05);
     });
 
     it('for max grass amount, some grains and none other resources ' +
@@ -45,7 +45,7 @@ describe('EnvironmentBlock', function () {
         straw: 1.0,
         grass: 0.8,
         grass_seeds: 1.0,
-        grains: 1.0
+        grains: 0.0001
       };
       Environment.getResourceInfo('grass')['max_amount'] = 5000;
       Environment.getResourceInfo('grains')['exploitable_resources'] = {
@@ -61,15 +61,15 @@ describe('EnvironmentBlock', function () {
       envBlock.resources['grass'] = 5000;
       envBlock.resources['grains'] = 100;
 
-      var gathered_resources = envBlock.gatherResources({strength: 1});
+      var gathered_resources = envBlock.getMaxResourcesAmountsFromGathering({strength: 1});
 
-      expect(gathered_resources['straw']).toBe(5);
-      expect(gathered_resources['grass']).toBe(4);
-      expect(gathered_resources['grass_seeds']).toBe(5.019);
-      expect(gathered_resources['grains']).toBe(5.019);
+      expect(gathered_resources.gathered_amounts['straw']).toBe(5);
+      expect(gathered_resources.gathered_amounts['grass']).toBe(4);
+      expect(gathered_resources.gathered_amounts['grass_seeds']).toBe(5);
+      expect(gathered_resources.gathered_amounts['grains']).toBe(0.019);
     });
 
-    it('for max grass amount, some grains and none other resources with another exploitable_resources' +
+    it('for max grass amount, some grains and none other resources with other exploitable_resources' +
     'returns specified resources amounts', function () {
 
       Environment.getResourceInfo('grass')['exploitable_resources'] = {
@@ -92,16 +92,15 @@ describe('EnvironmentBlock', function () {
       envBlock.resources['grass'] = 5000;
       envBlock.resources['grains'] = 100;
 
-      var gathered_resources = envBlock.gatherResources({strength: 1});
+      var gathered_resources = envBlock.getMaxResourcesAmountsFromGathering({strength: 1});
 
-      expect(gathered_resources['straw']).toBe(5);
-      expect(gathered_resources['grass']).toBe(4);
-      expect(gathered_resources['grass_seeds']).toBe(5.0095);
-      expect(gathered_resources['grains']).toBe(0.519);
+      expect(gathered_resources.gathered_amounts['straw']).toBe(5);
+      expect(gathered_resources.gathered_amounts['grass']).toBe(4);
+      expect(gathered_resources.gathered_amounts['grass_seeds']).toBe(5);
+      expect(gathered_resources.gathered_amounts['grains']).toBe(0.5);
     });
 
-    it('for max grass amount, some grains and none other resources ' +
-    'reduce specified resources amounts', function () {
+    it('will not take specified resources amounts from envBlock', function () {
 
       Environment.getResourceInfo('grass')['max_amount'] = 5000;
       Environment.getResourceInfo('grains')['max_amount'] = 1000;
@@ -116,10 +115,10 @@ describe('EnvironmentBlock', function () {
       envBlock.resources['grass'] = initial_grass_amount;
       envBlock.resources['grains'] = initial_grains_amount;
 
-      envBlock.gatherResources({strength: 1});
+      envBlock.getMaxResourcesAmountsFromGathering({strength: 1});
 
-      expect(envBlock.resources['grass']).toBe(initial_grass_amount - 5);
-      expect(envBlock.resources['grains']).toBe(initial_grains_amount - 0.019);
+      expect(envBlock.resources['grass']).toBe(initial_grass_amount);
+      expect(envBlock.resources['grains']).toBe(initial_grains_amount);
     });
 
     it('for a very little grains and none other resources ' +
@@ -137,10 +136,10 @@ describe('EnvironmentBlock', function () {
       }
       envBlock.resources['grains'] = 0.1;
 
-      var gathered_resources = envBlock.gatherResources({strength: 1});
+      var gathered_resources = envBlock.getMaxResourcesAmountsFromGathering({strength: 1});
 
-      expect(gathered_resources['grass_seeds']).toBeCloseTo(0.000000995, 10);
-      expect(gathered_resources['grains']).toBeCloseTo(0.000002, 7);
+      expect(gathered_resources.gathered_amounts['grass_seeds']).toBeCloseTo(0.000000995, 10);
+      expect(gathered_resources.gathered_amounts['grains']).toBeCloseTo(0.000002, 7);
     });
 
     it('for not much grains and none other resources ' +
@@ -158,10 +157,10 @@ describe('EnvironmentBlock', function () {
       }
       envBlock.resources['grains'] = 1000;
 
-      var gathered_resources = envBlock.gatherResources({strength: 1});
+      var gathered_resources = envBlock.getMaxResourcesAmountsFromGathering({strength: 1});
 
-      expect(gathered_resources['grass_seeds']).toBeCloseTo(0.001, 5);
-      expect(gathered_resources['grains']).toBeCloseTo(0.002, 5);
+      expect(gathered_resources.gathered_amounts['grass_seeds']).toBeCloseTo(0.001, 5);
+      expect(gathered_resources.gathered_amounts['grains']).toBeCloseTo(0.002, 5);
     });
 
     it('for some grains and none other resources ' +
@@ -179,11 +178,11 @@ describe('EnvironmentBlock', function () {
       }
       envBlock.resources['grains'] = 5;
 
-      var gathered_resources = envBlock.gatherResources({strength: 1});
+      var gathered_resources = envBlock.getMaxResourcesAmountsFromGathering({strength: 1});
 
-      expect(Object.keys(gathered_resources).indexOf('grains')).not.toBe(-1);
-      expect(Object.keys(gathered_resources).indexOf('grass_seeds')).not.toBe(-1);
-      expect(Object.keys(gathered_resources).length).toBe(2);
+      expect(Object.keys(gathered_resources.gathered_amounts).indexOf('grains')).not.toBe(-1);
+      expect(Object.keys(gathered_resources.gathered_amounts).indexOf('grass_seeds')).not.toBe(-1);
+      expect(Object.keys(gathered_resources.gathered_amounts).length).toBe(2);
     });
 
     it('for a very low max_gather_amount param ' +
@@ -202,10 +201,10 @@ describe('EnvironmentBlock', function () {
       envBlock.resources['grains'] = Environment.getResourceInfo('grains')['max_amount'];
       envBlock.max_gather_amount = 0.001;
 
-      var gathered_resources = envBlock.gatherResources({strength: 1});
+      var gathered_resources = envBlock.getMaxResourcesAmountsFromGathering({strength: 1});
 
-      expect(gathered_resources['grass_seeds']).not.toBeGreaterThan(envBlock.max_gather_amount);
-      expect(gathered_resources['grains']).not.toBeGreaterThan(envBlock.max_gather_amount);
+      expect(gathered_resources.gathered_amounts['grass_seeds']).not.toBeGreaterThan(envBlock.max_gather_amount);
+      expect(gathered_resources.gathered_amounts['grains']).not.toBeGreaterThan(envBlock.max_gather_amount);
     });
 
     it('for a very low gather_base_divisor param and Infinity as max_gather_amount ' +
@@ -225,10 +224,10 @@ describe('EnvironmentBlock', function () {
       envBlock.gather_base_divisor = 0.001;
       envBlock.max_gather_amount = Infinity;
 
-      var gathered_resources = envBlock.gatherResources({strength: 1});
+      var gathered_resources = envBlock.getMaxResourcesAmountsFromGathering({strength: 1});
 
-      expect(gathered_resources['grass_seeds']).toBe(500000);
-      expect(gathered_resources['grains']).toBe(1000000);
+      expect(gathered_resources.gathered_amounts['grass_seeds']).toBe(500000);
+      expect(gathered_resources.gathered_amounts['grains']).toBe(1000000);
     });
 
   });
