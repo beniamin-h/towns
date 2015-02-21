@@ -43,7 +43,7 @@ describe('Person', function(){
       }, 0)
     };
 
-    describe('cause person finds job, he starts doing it and he benefits from it', function () {
+    describe('cause person finds job, he starts doing it and he gains some food', function () {
       it('if there are no buildings he gathers resources from environment', function () {
 
         initProvider.initGenericProviders();
@@ -51,11 +51,11 @@ describe('Person', function(){
         buildingsProvider.setupInitialBuildings = function () { };
         initProvider.setupInitialInstances();
         var person = populationProvider.getAll()[0],
-          person_resources_amounts_sum = sum_resources_amounts(person.resources);
+          base_env_resources_amounts_sum = sum_resources_amounts(environmentProvider.getTownBlock().resources);
         EnvironmentBlock.prototype.gatherResources =
           jasmine.createSpy('gatherResources').andCallFake(EnvironmentBlock.prototype.gatherResources);
         GatherJob.prototype.base_progress_increase = 0.5;
-        person.eat = function () {};
+        person.resources['food'] = 0;
 
         person.live();
 
@@ -66,7 +66,9 @@ describe('Person', function(){
         person.live();
 
         expect(environmentProvider.getTownBlock().gatherResources).toHaveBeenCalledWith(person, jasmine.any(String));
-        expect(sum_resources_amounts(person.resources)).toBeGreaterThan(person_resources_amounts_sum);
+        expect(person.resources['food']).toBeGreaterThan(0);
+        expect(sum_resources_amounts(environmentProvider.getTownBlock().resources)).toBeLessThan(
+          base_env_resources_amounts_sum);
 
       });
 
@@ -78,6 +80,7 @@ describe('Person', function(){
         buildingsProvider.setupInitialBuildings = function () { };
         initProvider.setupInitialInstances();
         var people = populationProvider.getAll(),
+          base_env_resources_amounts_sum = sum_resources_amounts(environmentProvider.getTownBlock().resources),
           people_resources_amounts_sums = people.reduce(function (obj, person) {
             obj[person.name] = sum_resources_amounts(person.resources);
             return obj;
@@ -107,6 +110,8 @@ describe('Person', function(){
           expect(environmentProvider.getTownBlock().gatherResources).toHaveBeenCalledWith(person, jasmine.any(String) );
           expect(sum_resources_amounts(person.resources)).toBeGreaterThan(people_resources_amounts_sums[person.name]);
         });
+        expect(sum_resources_amounts(environmentProvider.getTownBlock().resources)).toBeLessThan(
+          base_env_resources_amounts_sum);
 
       });
 
