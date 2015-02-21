@@ -1,8 +1,8 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 'Math',
-    function (PopulationConfig, PersonDecider, Math) {
+angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 'Math', 'LocalMarket',
+    function (PopulationConfig, PersonDecider, Math, LocalMarket) {
 
   var names = {
     'male':[
@@ -112,6 +112,7 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     mother: null,
     father: null
   };
+  Person.prototype.temporary_resources_needs = {}; // { res_name: { priority: N, amount: N } }
   Person.prototype.needs = {
     food: 1.0,
     cloths: 1.0,
@@ -134,6 +135,7 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     }
     this.resources = {};
     this.buildings = [];
+    this.temporary_resources_needs = {};
   };
 
   Person.prototype.getRandomName = function (sex) {
@@ -198,6 +200,38 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
   Person.prototype.isInterestedInJob = function (job) {
     return true;
   };
+
+  Person.prototype.getMostFulfillAbleTemporaryNeededResource = function (res_amounts) {
+    var most_needed = null,
+      most_needed_fulfillment = 0,
+      available_resources = Object.keys(res_amounts);
+    for (var res_name in this.temporary_resources_needs) {
+      if (available_resources.indexOf(res_name) != -1 &&
+          this.temporary_resources_needs[res_name].priority > most_needed_fulfillment) {
+        most_needed_fulfillment = this.temporary_resources_needs[res_name].priority *
+          Math.min(1.0, res_amounts[res_name] / this.temporary_resources_needs[res_name].amount);
+        most_needed = res_name;
+      }
+    }
+    return most_needed;
+  };
+
+  /*
+  Person.prototype.getSortedByPriorityAndGivenResAmountTemporaryNeededResourcesNames = function (res_amounts) {
+    var that = this;
+    return Object.keys(this.temporary_resources_needs).sort(function (res_name_a, res_name_b) {
+      var priority_a = that.temporary_resources_needs[res_name_a].priority * (res_amounts[res_name_a] || 0),
+        priority_b = that.temporary_resources_needs[res_name_b].priority * (res_amounts[res_name_b] || 0);
+      if (priority_a > priority_b) {
+        return -1;
+      } else if (priority_a < priority_b) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  };
+  */
 
   return Person;
 }]);

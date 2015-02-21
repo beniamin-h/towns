@@ -65,7 +65,7 @@ describe('Person', function(){
 
         person.live();
 
-        expect(environmentProvider.getTownBlock().gatherResources).toHaveBeenCalledWith(person);
+        expect(environmentProvider.getTownBlock().gatherResources).toHaveBeenCalledWith(person, jasmine.any(String));
         expect(sum_resources_amounts(person.resources)).toBeGreaterThan(person_resources_amounts_sum);
 
       });
@@ -104,7 +104,7 @@ describe('Person', function(){
         });
 
         people.forEach(function (person) {
-          expect(environmentProvider.getTownBlock().gatherResources).toHaveBeenCalledWith(person);
+          expect(environmentProvider.getTownBlock().gatherResources).toHaveBeenCalledWith(person, jasmine.any(String) );
           expect(sum_resources_amounts(person.resources)).toBeGreaterThan(people_resources_amounts_sums[person.name]);
         });
 
