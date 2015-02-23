@@ -113,6 +113,13 @@ describe('Person', function(){
         expect(sum_resources_amounts(environmentProvider.getTownBlock().resources)).toBeLessThan(
           base_env_resources_amounts_sum);
 
+        people.forEach(function (person) {
+          person.live();
+          expect(person.job.current_progress).toBeGreaterThan(0);
+          person.live();
+          expect(person.job).toBe(null);
+        });
+
       });
 
     });

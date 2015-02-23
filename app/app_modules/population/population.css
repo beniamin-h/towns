@@ -1,0 +1,70 @@
+/* app css stylesheet */
+
+.population-list {
+  width: 1000px;
+  height: 800px;
+  box-sizing: content-box;
+}
+
+.population-list-header {
+  height: 34px;
+}
+
+.population-list-header .population-list-cell {
+  font-weight: bold;
+}
+
+.population-list-rows {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 1000px;
+  height: 700px;
+  box-sizing: content-box;
+}
+
+.population-list-row {
+  height: 45px;
+  border-top: 1px solid #ddd;
+  color: #444;
+  clear: both;
+}
+
+.population-list-row:hover {
+  color: #000;
+}
+
+.population-list-row:last-child {
+  border-bottom: 1px solid #ddd;
+}
+
+.population-list-row:hover + .population-list-row, .population-list-row:hover {
+  border-color: #bbb;
+}
+
+.population-list-row:hover + .population-list-row:last-child {
+  border-bottom-color: #ddd;
+}
+
+.population-list-cell {
+  margin-top: 12px;
+  float: left;
+}
+
+.population-list .person-name {
+  width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.population-list-cell.int {
+  width: 40px;
+  text-align: center;
+}
+
+.population-list-cell.job-name {
+  width: 200px;
+  text-align: right;
+}
+
+
+

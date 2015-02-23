@@ -15,7 +15,7 @@ angular.module('towns').factory('GatherJob', ['Job', 'Resources', 'LocalMarket',
   GatherJob.prototype.constructor = GatherJob;
 
   GatherJob.prototype.name = 'Gather resources';
-  GatherJob.prototype.base_progress_increase = 0.5;
+  GatherJob.prototype.base_progress_increase = 0.3334;
 
   GatherJob.prototype.can_do = function (person) {
     var parent_result = Job.prototype.can_do.apply(this, arguments);
@@ -29,6 +29,8 @@ angular.module('towns').factory('GatherJob', ['Job', 'Resources', 'LocalMarket',
       this.current_gathering_resource = this._getMostProfitableOrNeededResource(person);
     }
 
+    this.readable_name = 'Gather ' + this.current_gathering_resource.res_name;
+
     this.current_progress += this.base_progress_increase;
 
     if (this.current_progress >= 1.0) {
@@ -39,6 +41,7 @@ angular.module('towns').factory('GatherJob', ['Job', 'Resources', 'LocalMarket',
         person.resources[res_name] += gathered_resources[res_name];
       }
       this.finishJob();
+      this.readable_name = this.name;
     }
   };
 
