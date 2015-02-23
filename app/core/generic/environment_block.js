@@ -32,7 +32,6 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 
           this._calculateGatherPersonRatio(person)),
         this.resources[res_name]);
 
-      // this.resources[res_name] -= gather_amount;
       for (var exploitable_resource_name in Environment.getResourceInfo(res_name).exploitable_resources) {
         gathered_amounts[exploitable_resource_name] = gathered_amounts[exploitable_resource_name] || 0;
         var res_amount = gather_amount *
@@ -63,7 +62,7 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 
         this._calculateGatherPersonRatio(person)),
       this.resources[res_name]);
 
-    this.resources[res_name] -= gather_amount;
+    this.resources[res_name] -= gather_amount * (Math.random() * 0.5 + 0.75);
     for (var exploitable_resource_name in Environment.getResourceInfo(res_name).exploitable_resources) {
       gathered_amounts[exploitable_resource_name] = gather_amount *
         Environment.getResourceInfo(res_name).exploitable_resources[exploitable_resource_name] *

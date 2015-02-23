@@ -7,6 +7,7 @@ angular.module('towns', [
   'towns.layout',
   'towns.map',
   'towns.environment',
+  'towns.population',
   'towns.main_panel',
   'towns.prop_panel',
   'towns.population_info',

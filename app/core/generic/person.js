@@ -101,6 +101,7 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
   Person.prototype.is_human = true;
   Person.prototype.name = '';
   Person.prototype.sex = '';
+  Person.prototype.age = 0;
   Person.prototype.money = 0;
   Person.prototype.job = null;
   Person.prototype.happiness = _config.base_initial_happiness;
@@ -124,6 +125,7 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
 
   Person.prototype.born = function (mother, father) {
     this.sex = Math.random() > 0.5 ? 'male' : 'female';
+    this.age = Math.round(Math.random() * 60);
     this.name = [this.getRandomName(this.sex), this.getRandomName(this.sex)].join(' ');
     this.childOf = {
       mother: mother,

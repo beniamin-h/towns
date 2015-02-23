@@ -9,6 +9,9 @@ angular.module('towns').factory('Formatters', function () {
     floatToPercents: function (value) {
       return Math.round(value * 100);
     },
+    round: function (value, numbers_after_comma) {
+      return Math.round(value, numbers_after_comma);
+    },
     _factory: this
   };
 });

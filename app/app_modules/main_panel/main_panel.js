@@ -9,7 +9,8 @@ angular.module('towns.main_panel', ['ui.bootstrap'])
   $scope._initMainPanel = function() {
     $scope.selected_main_panel_tab = {
       map: true,
-      environment: false
+      environment: false,
+      population: false
     };
   };
 

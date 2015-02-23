@@ -1,0 +1,32 @@
+<div class="population-list" ng-init="_populationInit()">
+    <div class="population-list-header">
+        <div class="population-list-cell person-name">Name</div>
+        <div class="population-list-cell int">Age</div>
+        <div class="population-list-cell int">Mod</div>
+        <div class="population-list-cell int">HP</div>
+        <div class="population-list-cell int">Food</div>
+        <div class="population-list-cell int">Wear</div>
+        <div class="population-list-cell int">Home</div>
+        <div class="population-list-cell int">Work</div>
+        <div class="population-list-cell int">Money</div>
+        <div class="population-list-cell job-name">Job</div>
+    </div>
+    <div class="population-list-rows">
+        <div class="population-list-row" ng-repeat="person in people"
+             ng-click="populationListItemClicked(person)">
+            <div class="population-list-cell person-name">{{ person.name }}</div>
+            <div class="population-list-cell int">{{ person.age }}</div>
+            <div class="population-list-cell int">{{ floatToPercents(person.happiness) }}</div>
+            <div class="population-list-cell int">{{ floatToPercents(person.health) }}</div>
+            <div class="population-list-cell int">{{ floatToPercents(person.needs.food) }}</div>
+            <div class="population-list-cell int">{{ floatToPercents(person.needs.cloths) }}</div>
+            <div class="population-list-cell int">{{ floatToPercents(person.needs.shelter) }}</div>
+            <div class="population-list-cell int">{{ floatToPercents(person.needs.work) }}</div>
+            <div class="population-list-cell int">{{ round(person.money) }}</div>
+            <div class="population-list-cell job-name">
+                {{ person.job.readable_name || 'Idling' }}
+                ({{ floatToPercents(person.job.current_progress || 0) }}%)
+            </div>
+        </div>
+    </div>
+</div>
