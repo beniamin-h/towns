@@ -23,7 +23,7 @@ describe('PersonDecider', function(){
           food: 0
         }
       };
-      LocalMarket.getPrice = jasmine.createSpy('LocalMarket.getPrice').andReturn(1);
+      LocalMarket.getPriceToBuy = jasmine.createSpy('LocalMarket.getPriceToBuy').andReturn(1);
       LocalMarket.buy = jasmine.createSpy('LocalMarket.buy').andCallFake(LocalMarket.buy);
 
       PersonDecider._instance.tryToBuyFood(person);
@@ -40,7 +40,7 @@ describe('PersonDecider', function(){
           food: 0
         }
       };
-      LocalMarket.getPrice = jasmine.createSpy('LocalMarket.getPrice').andReturn(1);
+      LocalMarket.getPriceToBuy = jasmine.createSpy('LocalMarket.getPriceToBuy').andReturn(1);
       LocalMarket.buy = jasmine.createSpy('LocalMarket.buy').andCallFake(LocalMarket.buy);
 
       PersonDecider._instance.tryToBuyFood(person);
@@ -57,7 +57,7 @@ describe('PersonDecider', function(){
           food: 0
         }
       };
-      LocalMarket.getPrice = jasmine.createSpy('LocalMarket.getPrice').andReturn(1);
+      LocalMarket.getPriceToBuy = jasmine.createSpy('LocalMarket.getPriceToBuy').andReturn(1);
       LocalMarket.buy = jasmine.createSpy('LocalMarket.buy').andCallFake(LocalMarket.buy);
 
       PersonDecider._instance.tryToBuyFood(person);
@@ -74,7 +74,7 @@ describe('PersonDecider', function(){
           food: 0
         }
       };
-      LocalMarket.getPrice = jasmine.createSpy('LocalMarket.getPrice').andReturn(4);
+      LocalMarket.getPriceToBuy = jasmine.createSpy('LocalMarket.getPriceToBuy').andReturn(4);
       LocalMarket.buy = jasmine.createSpy('LocalMarket.buy').andCallFake(LocalMarket.buy);
 
       PersonDecider._instance.tryToBuyFood(person);
@@ -91,7 +91,7 @@ describe('PersonDecider', function(){
           food: 0
         }
       };
-      LocalMarket.getPrice = jasmine.createSpy('LocalMarket.getPrice').andReturn(4);
+      LocalMarket.getPriceToBuy = jasmine.createSpy('LocalMarket.getPriceToBuy').andReturn(4);
       LocalMarket.buy = jasmine.createSpy('LocalMarket.buy').andCallFake(LocalMarket.buy);
 
       PersonDecider._instance.tryToBuyFood(person);
@@ -108,7 +108,7 @@ describe('PersonDecider', function(){
           food: 1
         }
       };
-      LocalMarket.getPrice = jasmine.createSpy('LocalMarket.getPrice').andReturn(1);
+      LocalMarket.getPriceToBuy = jasmine.createSpy('LocalMarket.getPriceToBuy').andReturn(1);
       LocalMarket.buy = jasmine.createSpy('LocalMarket.buy').andCallFake(LocalMarket.buy);
 
       PersonDecider._instance.tryToBuyFood(person);
@@ -125,7 +125,7 @@ describe('PersonDecider', function(){
           food: 5
         }
       };
-      LocalMarket.getPrice = jasmine.createSpy('LocalMarket.getPrice').andReturn(1);
+      LocalMarket.getPriceToBuy = jasmine.createSpy('LocalMarket.getPriceToBuy').andReturn(1);
       LocalMarket.buy = jasmine.createSpy('LocalMarket.buy').andCallFake(LocalMarket.buy);
 
       PersonDecider._instance.tryToBuyFood(person);
@@ -142,7 +142,7 @@ describe('PersonDecider', function(){
           food: 5
         }
       };
-      LocalMarket.getPrice = jasmine.createSpy('LocalMarket.getPrice').andReturn(1);
+      LocalMarket.getPriceToBuy = jasmine.createSpy('LocalMarket.getPriceToBuy').andReturn(1);
       LocalMarket.buy = jasmine.createSpy('LocalMarket.buy').andCallFake(LocalMarket.buy);
 
       PersonDecider._instance.tryToBuyFood(person);

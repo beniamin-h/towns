@@ -1805,10 +1805,10 @@ describe('Environment', function () {
       });
     });
 
-    describe('getResourcesInitialAmounts', function () {
+    describe('getEnvResourcesInitialAmounts', function () {
 
       it('returns all resources amounts', function () {
-        var return_value = env.getResourcesInitialAmounts();
+        var return_value = env.getEnvResourcesInitialAmounts();
         for (res_name in env.resources) {
           expect(Object.keys(return_value).indexOf(res_name) > -1).toBeTruthy();
           expect(return_value[res_name]).not.toBeUndefined();
@@ -1831,7 +1831,7 @@ describe('Environment', function () {
 
           it('returns 0 amounts', function () {
             setup_test();
-            var amounts = env.getResourcesInitialAmounts();
+            var amounts = env.getEnvResourcesInitialAmounts();
             for (res_name in amounts) {
               expect(amounts[res_name]).toBe(0);
             }
@@ -1839,13 +1839,13 @@ describe('Environment', function () {
 
           it('_checkResourceOccurrenceRequirements is called as many times as number of resources', function () {
             setup_test();
-            var amounts = env.getResourcesInitialAmounts();
+            var amounts = env.getEnvResourcesInitialAmounts();
             expect(env._checkResourceOccurrenceRequirements.callCount).toBe(Object.keys(env.resources).length);
           });
 
           it('returns Array with as many elements as number of resources', function () {
             setup_test();
-            var amounts = env.getResourcesInitialAmounts();
+            var amounts = env.getEnvResourcesInitialAmounts();
             expect(Object.keys(amounts).length).toBe(Object.keys(env.resources).length);
           });
         });
@@ -1867,13 +1867,13 @@ describe('Environment', function () {
 
           it('_polishResourceAmount is called as many times as number of resources', function () {
             setup_test();
-            var amounts = env.getResourcesInitialAmounts();
+            var amounts = env.getEnvResourcesInitialAmounts();
             expect(env._polishResourceAmount.callCount).toBe(Object.keys(env.resources).length);
           });
 
           it('returns value returned from _polishResourceAmount', function () {
             setup_test();
-            var amounts = env.getResourcesInitialAmounts();
+            var amounts = env.getEnvResourcesInitialAmounts();
             for (res_name in amounts) {
               expect(amounts[res_name]).toBe(polish_resource_amount_return_value);
             }
@@ -1937,7 +1937,7 @@ describe('Environment', function () {
           env.resources_placement_order = fixture_1.resources_placement_order;
           _Math.random = function () { return 1.0; };
 
-          var amounts = env.getResourcesInitialAmounts();
+          var amounts = env.getEnvResourcesInitialAmounts();
 
           for (var res_name in fixture_1.resources) {
             expect(amounts[res_name]).toBe(fixture_1.resources[res_name].max_amount);
@@ -1951,7 +1951,7 @@ describe('Environment', function () {
           env.resources_placement_order = fixture_1.resources_placement_order;
           _Math.random = function () { return 0.5; };
 
-          var amounts = env.getResourcesInitialAmounts();
+          var amounts = env.getEnvResourcesInitialAmounts();
 
           expect(amounts['res_abc']).toBe(250);
 
@@ -1963,7 +1963,7 @@ describe('Environment', function () {
           env.resources_placement_order = fixture_1.resources_placement_order;
           _Math.random = function () { return 0.5; };
 
-          var amounts = env.getResourcesInitialAmounts();
+          var amounts = env.getEnvResourcesInitialAmounts();
 
           expect(amounts['res_xyz']).toBe(6.5);
 

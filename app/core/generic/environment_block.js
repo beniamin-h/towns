@@ -1,12 +1,12 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 'GatherJob',
-  function (Environment, JobsList, GatherJob) {
+angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 'GatherJob', 'Resources',
+  function (Environment, JobsList, GatherJob, Resources) {
 
   var EnvironmentBlock = function (map_index) {
     this.map_index = map_index;
-    this.resources = Environment.getResourcesInitialAmounts();
+    this.resources = Environment.getEnvResourcesInitialAmounts();
   };
 
   EnvironmentBlock.prototype.map_index = -1;
@@ -28,14 +28,15 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 
       var gather_amount = this._calculateGatherAmount(
         this._calculateGatherRatio(
           this._calculateGatherEnvRatio(
-            this.resources[res_name], Environment.getResourceInfo(res_name).max_amount),
+            this.resources[res_name], Environment.getEnvResourceInfo(res_name).max_amount),
           this._calculateGatherPersonRatio(person)),
         this.resources[res_name]);
 
-      for (var exploitable_resource_name in Environment.getResourceInfo(res_name).exploitable_resources) {
+      for (var exploitable_resource_name in Environment.getEnvResourceInfo(res_name).exploitable_resources) {
         gathered_amounts[exploitable_resource_name] = gathered_amounts[exploitable_resource_name] || 0;
         var res_amount = gather_amount *
-          Environment.getResourceInfo(res_name).exploitable_resources[exploitable_resource_name];
+          Environment.getEnvResourceInfo(res_name).exploitable_resources[exploitable_resource_name] *
+          Resources.getResourceInfo(exploitable_resource_name).gathering_accessibility;
         if (res_amount > gathered_amounts[exploitable_resource_name]) {
           gathered_amounts[exploitable_resource_name] = res_amount;
           gathered_from[exploitable_resource_name] = res_name;
@@ -58,14 +59,15 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 
     var gather_amount = this._calculateGatherAmount(
       this._calculateGatherRatio(
         this._calculateGatherEnvRatio(
-          this.resources[res_name], Environment.getResourceInfo(res_name).max_amount),
+          this.resources[res_name], Environment.getEnvResourceInfo(res_name).max_amount),
         this._calculateGatherPersonRatio(person)),
       this.resources[res_name]);
 
     this.resources[res_name] -= gather_amount * (Math.random() * 0.5 + 0.75);
-    for (var exploitable_resource_name in Environment.getResourceInfo(res_name).exploitable_resources) {
+    for (var exploitable_resource_name in Environment.getEnvResourceInfo(res_name).exploitable_resources) {
       gathered_amounts[exploitable_resource_name] = gather_amount *
-        Environment.getResourceInfo(res_name).exploitable_resources[exploitable_resource_name] *
+        Environment.getEnvResourceInfo(res_name).exploitable_resources[exploitable_resource_name] *
+          Resources.getResourceInfo(exploitable_resource_name).gathering_accessibility *
         (Math.random() * 0.5 + 0.5);
     }
 
