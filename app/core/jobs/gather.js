@@ -15,7 +15,7 @@ angular.module('towns').factory('GatherJob', ['Job', 'Resources', 'LocalMarket',
   GatherJob.prototype.constructor = GatherJob;
 
   GatherJob.prototype.name = 'Gather resources';
-  GatherJob.prototype.base_progress_increase = 0.3334;
+  GatherJob.prototype.base_progress_increase = 0.25;
 
   GatherJob.prototype.can_do = function (person) {
     var parent_result = Job.prototype.can_do.apply(this, arguments);
@@ -69,14 +69,14 @@ angular.module('towns').factory('GatherJob', ['Job', 'Resources', 'LocalMarket',
     }
 
     for (var res_name in gathered_amounts) {
-      earned_money_per_resource[res_name] = LocalMarket.getPrice(res_name) * gathered_amounts[res_name];
+      earned_money_per_resource[res_name] = LocalMarket.getPriceToSell(res_name) * gathered_amounts[res_name];
       if (earned_money_per_resource[res_name] > max_money_amount_from_selling) {
         max_money_amount_from_selling = earned_money_per_resource[res_name];
         best_resource_for_selling_source = gathered_from[res_name];
       }
     }
 
-    var max_affordable_food_amount = max_money_amount_from_selling / LocalMarket.getPrice('food'),
+    var max_affordable_food_amount = max_money_amount_from_selling / LocalMarket.getPriceToBuy('food'),
       max_purchasable_food_amount = LocalMarket.getPurchasableResourceAmount('food'),
       max_food_amount_to_buy_for_money_from_gathering =
       Math.min(max_affordable_food_amount, max_purchasable_food_amount);

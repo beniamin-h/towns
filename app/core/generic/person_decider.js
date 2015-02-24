@@ -22,7 +22,7 @@ angular.module('towns').factory('PersonDecider', ['LocalMarket', 'JobsList', 'Ma
   };
 
   PersonDecider.prototype.tryToBuyFood = function (person) {
-    var food_price = LocalMarket.getPrice('food'),
+    var food_price = LocalMarket.getPriceToBuy('food'),
       amount_affordable = person.money / food_price,
       amount_to_buy = Math.min(amount_affordable, person.safe_food_amount_max - (person.resources.food || 0));
     if (amount_to_buy) {

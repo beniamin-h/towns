@@ -9,6 +9,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
   Resources.prototype.resources = {
     straw: {
       display_name: 'Straw',
+      gathering_accessibility: 1.0,
       gathering_tools_impact: {
         none: 1,
         wood: 1.5,
@@ -20,6 +21,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     grass: {
       display_name: 'Grass',
+      gathering_accessibility: 1.0,
       gathering_tools_impact: {
         none: 1,
         wood: 1.5,
@@ -31,6 +33,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     grass_seeds: {
       display_name: 'Grass seeds',
+      gathering_accessibility: 0.8,
       gathering_tools_impact: {
         none: 1,
         wood: 1.2,
@@ -42,6 +45,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     grains: {
       display_name: 'Grains',
+      gathering_accessibility: 0.8,
       gathering_tools_impact: {
         none: 1,
         wood: 1.2,
@@ -53,6 +57,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     tree_seeds:{
       display_name: 'Tree seeds',
+      gathering_accessibility: 0.8,
       gathering_tools_impact: {
         none: 1,
         wood: 1.2,
@@ -64,6 +69,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     wood_branches:{
       display_name: 'Wood branches',
+      gathering_accessibility: 0.9,
       gathering_tools_impact: {
         none: 0.5,
         wood: 1.5,
@@ -75,6 +81,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     soft_wood:{
       display_name: 'Soft wood',
+      gathering_accessibility: 0.75,
       gathering_tools_impact: {
         none: 0.2,
         wood: 0.6,
@@ -86,6 +93,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     hard_wood:{
       display_name: 'Hard wood',
+      gathering_accessibility: 0.5,
       gathering_tools_impact: {
         none: 0,
         wood: 0.2,
@@ -97,6 +105,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     linen:{
       display_name: 'Linen',
+      gathering_accessibility: 0.8,
       gathering_tools_impact: {
         none: 1,
         wood: 1.2,
@@ -108,6 +117,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     sand:{
       display_name: 'Sand',
+      gathering_accessibility: 0.1,
       gathering_tools_impact: {
         none: 0.5,
         wood: 2,
@@ -119,6 +129,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     stone:{
       display_name: 'Stone',
+      gathering_accessibility: 0.05,
       gathering_tools_impact: {
         none: 0.4,
         wood: 0.8,
@@ -130,6 +141,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     iron_ore:{
       display_name: 'Iron ore',
+      gathering_accessibility: 0.01,
       gathering_tools_impact: {
         none: 0,
         wood: 0.1,
@@ -141,6 +153,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     coal:{
       display_name: 'Coal',
+      gathering_accessibility: 0.01,
       gathering_tools_impact: {
         none: 0,
         wood: 0.1,
@@ -152,6 +165,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     animals:{
       display_name: 'Animals',
+      gathering_accessibility: 0.1,
       gathering_tools_impact: {
         none: 0.1,
         wood: 0.5,
@@ -163,6 +177,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     fur:{
       display_name: 'Fur',
+      gathering_accessibility: 0.07,
       gathering_tools_impact: {
         none: 0.2,
         wood: 0.5,
@@ -174,6 +189,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     eggs:{
       display_name: 'eggs',
+      gathering_accessibility: 0.5,
       gathering_tools_impact: {
         none: 1,
         wood: 1.1,
@@ -186,6 +202,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     meat:{
       display_name: 'Meat',
+      gathering_accessibility: 0.2,
       gathering_tools_impact: {
         none: 0.2,
         wood: 0.5,
@@ -198,6 +215,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     wool:{
       display_name: 'Wool',
+      gathering_accessibility: 0.1,
       gathering_tools_impact: {
         none: 1,
         wood: 2,
@@ -209,6 +227,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     sinew:{
       display_name: 'Sinew',
+      gathering_accessibility: 0.05,
       gathering_tools_impact: {
         none: 0.1,
         wood: 0.4,
@@ -220,6 +239,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     fat:{
       display_name: 'Fat',
+      gathering_accessibility: 0.2,
       gathering_tools_impact: {
         none: 0,
         wood: 0.5,
@@ -231,6 +251,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     bones:{
       display_name: 'Bones',
+      gathering_accessibility: 0.5,
       gathering_tools_impact: {
         none: 1,
         wood: 1.2,
@@ -242,6 +263,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     big_bones:{
       display_name: 'Big bones',
+      gathering_accessibility: 0.2,
       gathering_tools_impact: {
         none: 1,
         wood: 1.2,
@@ -253,6 +275,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     fruits:{
       display_name: 'Fruits',
+      gathering_accessibility: 0.9,
       gathering_tools_impact: {
         none: 1,
         wood: 2,
@@ -265,6 +288,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     fruits_seeds:{
       display_name: 'Fruits seeds',
+      gathering_accessibility: 0.8,
       gathering_tools_impact: {
         none: 1,
         wood: 1.2,
@@ -276,6 +300,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     vegetables:{
       display_name: 'Vegetables',
+      gathering_accessibility: 1.0,
       gathering_tools_impact: {
         none: 1,
         wood: 1.5,
@@ -288,6 +313,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     vegetables_seeds:{
       display_name: 'Vegetables seeds',
+      gathering_accessibility: 0.8,
       gathering_tools_impact: {
         none: 1,
         wood: 1.2,
@@ -299,6 +325,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     fresh_water:{
       display_name: 'Fresh water',
+      gathering_accessibility: 0.1,
       gathering_tools_impact: {
         none: 0,
         wood: 1.0,
@@ -310,6 +337,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     clay:{
       display_name: 'Clay',
+      gathering_accessibility: 0.1,
       gathering_tools_impact: {
         none: 0.5,
         wood: 1,
@@ -321,6 +349,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     herbs_seeds:{
       display_name: 'Herbs seeds',
+      gathering_accessibility: 0.6,
       gathering_tools_impact: {
         none: 1,
         wood: 1.2,
@@ -332,6 +361,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
 
     herbs:{
       display_name: 'Herbs',
+      gathering_accessibility: 0.7,
       gathering_tools_impact: {
         none: 1,
         wood: 1.5,
@@ -363,7 +393,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
     getEatableResourcesNames: function () {
       return resources.eatable_resources;
     },
-    getResourceGrowth: function (resource_type, resource_amount) {
+    getEnvResourceGrowth: function (resource_type, resource_amount) {
 
     },
     _instance: resources

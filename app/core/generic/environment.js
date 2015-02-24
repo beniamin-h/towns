@@ -477,7 +477,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
     return amount;
   };
 
-  Environment.prototype.getResourcesInitialAmounts = function () {
+  Environment.prototype.getEnvResourcesInitialAmounts = function () {
     var amounts = {},
       that = this;
 
@@ -500,16 +500,16 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
   var environment = new Environment();
 
   return {
-    getResourcesInfo: function () {
+    getEnvResourcesInfo: function () {
       return environment.resources;
     },
-    getResourceInfo: function (res_name) {
+    getEnvResourceInfo: function (res_name) {
       return environment.resources[res_name];
     },
-    getResourcesInitialAmounts: function () {
-      return environment.getResourcesInitialAmounts();
+    getEnvResourcesInitialAmounts: function () {
+      return environment.getEnvResourcesInitialAmounts();
     },
-    getResourceGrowth: function (resource_type, resource_amount) {
+    getEnvResourceGrowth: function (resource_type, resource_amount) {
 
     },
     _instance: environment
