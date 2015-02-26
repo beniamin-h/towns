@@ -26,6 +26,10 @@ angular.module('towns.prop_panel', ['ui.bootstrap'])
     $scope.selectPropPanelTab('environment');
   });
 
+  $scope.$on('populationListItemClicked', function (event, building_class) {
+    $scope.selectPropPanelTab('population');
+  });
+
   // ------------------- SCOPE METHODS -------------------
 
   $scope.selectPropPanelTab = function (selected_tab) {

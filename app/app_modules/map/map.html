@@ -1,13 +1,39 @@
-<div class="map-blocks" ng-init="_initMap()"
-     ng-class="{'select_new_building_position': selected_mask == 'selecting_new_building_position'}">
-    <div class="map-block" ng-repeat="block in blocks"
-         ng-class="[isClickable(block)]"
-         ng-click="blockClicked(block)">
-        <div ng-if="block.building" class="building"
-             ng-class="[block.building.code]"
-             ng-style="{'opacity': getBlockOpacity(block)}"
-             tooltip-html-unsafe="<b>{{ block.building.name }}</b><br />
-                <span>{{ (block.building.inhabitants).reduce(implode, '') }}</span>"
-             tooltip-placement="right"></div>
+<div class="map-window" ng-init="_initMap()">
+    <div class="map-blocks" ng-style="{'left': window_scroll_offsets.left + 'px', 'top': window_scroll_offsets.top + 'px' }"
+         ng-class="{'select_new_building_position': selected_mask == 'selecting_new_building_position'}">
+        <div class="map-block" ng-repeat="block in blocks"
+             ng-class="[isClickable(block)]"
+             ng-click="blockClicked(block)">
+            <div ng-if="block.building" class="building"
+                 ng-class="[block.building.code]"
+                 ng-style="{'opacity': getBlockOpacity(block)}"
+                 tooltip-html-unsafe="<b>{{ block.building.name }}</b><br />
+                    <span>{{ (block.building.inhabitants).reduce(implode, '') }}</span>"
+                 tooltip-placement="right"></div>
+        </div>
+    </div>
+    <div class="map-window-scroll map-window-scroll-top"
+         ng-class="{'map-window-scroll-disabled': window_scroll_offsets.top == 0}"
+         ng-mouseenter="mapWindowScrollHovered('top')"
+         ng-mouseleave="mapWindowScrollHovered(false)">
+        <div class="map-window-scroll-arrow"></div>
+    </div>
+    <div class="map-window-scroll map-window-scroll-right"
+         ng-class="{'map-window-scroll-disabled': window_scroll_offsets.left == max_scroll_offsets.left}"
+         ng-mouseenter="mapWindowScrollHovered('right')"
+         ng-mouseleave="mapWindowScrollHovered(false)">
+        <div class="map-window-scroll-arrow"></div>
+    </div>
+    <div class="map-window-scroll map-window-scroll-bottom"
+         ng-class="{'map-window-scroll-disabled': window_scroll_offsets.top == max_scroll_offsets.top}"
+         ng-mouseenter="mapWindowScrollHovered('bottom')"
+         ng-mouseleave="mapWindowScrollHovered(false)">
+        <div class="map-window-scroll-arrow"></div>
+    </div>
+    <div class="map-window-scroll map-window-scroll-left"
+         ng-class="{'map-window-scroll-disabled': window_scroll_offsets.left == 0}"
+         ng-mouseenter="mapWindowScrollHovered('left')"
+         ng-mouseleave="mapWindowScrollHovered(false)">
+        <div class="map-window-scroll-arrow"></div>
     </div>
 </div>
