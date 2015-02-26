@@ -19,7 +19,9 @@ angular.module('towns').factory('mapProvider', ['_map_config', 'Math', 'ArrayUti
       for (var i = 0; i < this.getWidth() * this.getHeight(); i++) {
         that.blocks.push({
           building: null,
-          index: i
+          index: i,
+          x: i % _map_config.map_dim.x,
+          y: Math.floor(i / _map_config.map_dim.x)
         });
       }
     },

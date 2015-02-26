@@ -16,8 +16,8 @@ angular.module('towns').factory('initProvider', ['populationProvider', 'building
       populationProvider.setupInitialPopulation(PopulationConfig.initial_population_count);
       buildingsProvider.setupInitialBuildings(
         populationProvider.getAll(), mapProvider.getAllBlocks(), [
-          Math.floor(mapProvider.getWidth() * 0.15), Math.floor(mapProvider.getHeight() * 0.15),
-          Math.floor(mapProvider.getWidth() * 0.70), Math.floor(mapProvider.getHeight() * 0.70)]);
+          Math.floor(mapProvider.getWidth() * 0.6), Math.floor(mapProvider.getHeight() * 0.6),
+          Math.floor(mapProvider.getWidth() * 0.4), Math.floor(mapProvider.getHeight() * 0.4)]);
     },
     setupTickProcessInterval: function () {
       var self = this;

@@ -1,11 +1,100 @@
 /* app css stylesheet */
 
-.map-blocks {
+.map-window {
   width: 1000px;
   height: 800px;
+  overflow: hidden;
+  position: relative;
   border: 1px solid black;
   box-sizing: content-box;
+}
+
+.map-window-scroll {
+  position: absolute;
+  z-index: 10;
+}
+
+.map-window-scroll.map-window-scroll-disabled {
+  z-index: 1;
+}
+
+.map-window-scroll-top {
+  width: 100%;
+  height: 100px;
+  left: 0px;
+  top: 0px;
+}
+
+.map-window-scroll-right {
+  width: 100px;
+  height: 100%;
+  right: 0px;
+  top: 0px;
+}
+
+.map-window-scroll-bottom {
+  width: 100%;
+  height: 100px;
+  left: 0px;
+  bottom: 0px;
+}
+
+.map-window-scroll-left {
+  width: 100px;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+}
+
+.map-window-scroll-arrow {
+  background: url('/app/images/arrow.png') no-repeat center;
+  position: relative;
+  margin: auto auto auto auto;
+  width: 50px;
+  height: 50px;
+  background-size: 40px;
+}
+
+.map-window-scroll:hover .map-window-scroll-arrow {
+  display: block;
+}
+
+.map-window-scroll-arrow,
+.map-window-scroll.map-window-scroll-disabled:hover .map-window-scroll-arrow {
+  display: none;
+}
+
+.map-window-scroll-top .map-window-scroll-arrow {
+  transform: rotate(-90deg);
+  top: 22px;
+}
+
+.map-window-scroll-left .map-window-scroll-arrow {
+  transform: rotate(-180deg);
+  top: 375px;
+  left: -3px;
+}
+
+.map-window-scroll-bottom .map-window-scroll-arrow {
+  transform: rotate(-270deg);
+  top: 29px;
+}
+
+.map-window-scroll-right .map-window-scroll-arrow {
+  top: 375px;
+  left: 3px;
+}
+
+.map-blocks {
+  -webkit-transition-property: initial;
+  -webkit-transition-duration: 0.1s;
+  -webkit-transition-timing-function: linear;
+  -webkit-transition-delay: 0s;
+  position: absolute;
+  width: 2000px;
+  height: 2000px;
   background-color: #040;
+  z-index: 5;
 }
 
 .map-block {

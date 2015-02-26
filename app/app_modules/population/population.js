@@ -20,8 +20,8 @@ angular.module('towns.population', ['ui.bootstrap'])
 
   // ------------------- SCOPE METHODS -------------------
 
-  $scope.populationListItemClicked = function (block) {
-    $rootScope.$broadcast('populationListItemClicked', block);
+  $scope.populationListItemClicked = function (person) {
+    $rootScope.$broadcast('populationListItemClicked', person);
   };
 
   $scope.floatToPercents = Formatters.floatToPercents;
