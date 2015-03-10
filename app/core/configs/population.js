@@ -3,7 +3,7 @@
  */
 angular.module('towns').value('PopulationConfig', {
   base_immigration_rate: 0.0,
-  initial_population_count: 100,
+  initial_population_count: 10,
   base_initial_happiness: 0.7,
   base_initial_health: 0.7,
   base_daily_food_need: 0.05,
