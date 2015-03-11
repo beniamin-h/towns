@@ -116,7 +116,8 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
   Person.prototype.temporary_resources_needs = {}; // { res_name: { priority: N, amount: N } }
   Person.prototype.needs = {
     food: 1.0,
-    cloths: 1.0,
+    clothing: 1.0,
+    rest: 1.0,
     shelter: 1.0,
     work: 1.0
   };
@@ -147,16 +148,173 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
   };
 
   Person.prototype.live = function () {
+    this.consumeDailyResources();
+    this.recalculatePersonalNeeds();
+    this.tryToSatisfyNeeds();
+  };
+
+  Person.prototype.consumeDailyResources = function () {
     this.wear();
-    this.eat();
+    this.inhabit(); // ?
+  };
+
+  Person.prototype.recalculatePersonalNeeds = function () {
+    this.recalculateHunger(); //food
+    this.recalculateClothing(); //cloth
+    this.recalculateRest(); //shelter
+    this.recalculateInhabitancy(); //shelter
+    this.recalculateEmployment(); //work
+  };
+
+  Person.prototype.recalculateHunger = function () {
+    this.needs.food -= 0.05;
+    this.needs.food = this.needs.food < 0 ? 0 : this.needs.food;
+  };
+
+  Person.prototype.recalculateClothing = function () {
+    this.needs.clothing -= 0.01;
+    this.needs.clothing = this.needs.clothing < 0 ? 0 : this.needs.clothing;
+  };
+
+  Person.prototype.recalculateRest = function () {
+    this.needs.rest -= 0.1;
+    this.needs.rest = this.needs.rest < 0 ? 0 : this.needs.rest;
+  };
+
+  Person.prototype.recalculateInhabitancy = function () {
+
+  };
+
+  Person.prototype.recalculateEmployment = function () {
+
+  };
+
+  Person.prototype.tryToSatisfyNeeds = function () {
+    var need_to_satisfy = this.chooseMostWorrisomeNeed();
+    if (need_to_satisfy.type == 'personal need') {
+      if (need_to_satisfy.subject == 'food') {
+        this.eat();
+      } else if (need_to_satisfy.subject == 'rest') {
+        this.rest();
+      }
+    } else if (need_to_satisfy.type == 'products') {
+      this.buyOnLocalMarket(need_to_satisfy.subject) ||
+        this.gatherResourceFromEnv(need_to_satisfy.subject) ||
+        this.tryToProduce(need_to_satisfy.subject) ||
+        this.stealResource(need_to_satisfy.subject);
+    } else if (need_to_satisfy.type == 'money') {
+      this.goToWork() ||
+        this.findJob() ||
+        this.sellNeedlessResourcesToLocalMarket() ||
+        this.stealResource();
+    }
+  };
+
+  Person.prototype.chooseMostWorrisomeNeed = function () {
+    var type = 'personal need' || 'products' || 'money';
+    var subject = 'food' || 'rest' || 'clothing' || 'money' || 'etc.';
+    return {
+      type: type,
+      subject: subject
+    }
+  };
+
+  Person.prototype.wear = function () {
+    var consumed;
+    if (this.resources['clothing'] > 1) {
+      consumed = 0.01;
+    } else if (this.resources['clothing'] > 0.5) {
+      consumed = this.resources['clothing'] * 0.01;
+    } else if (this.resources['clothing'] > 0.005) {
+      consumed = 0.005;
+    } else {
+      consumed = this.resources['clothing'];
+    }
+
+    this.resources['clothing'] -= consumed;
+    this.needs.clothing += consumed * 10;
+    this.needs.clothing = this.needs.clothing < 1 ? this.needs.clothing : 1;
+  };
+
+  Person.prototype.eat = function () {
+    var consumed;
+    if (this.resources['food'] > 1) {
+      consumed = 0.1;
+    } else if (this.resources['food'] > 0.5) {
+      consumed = this.resources['food'] * 0.1;
+    } else if (this.resources['food'] > 0.05) {
+      consumed = 0.05;
+    } else {
+      consumed = this.resources['food'];
+    }
+
+    this.resources['food'] -= consumed;
+    this.needs.food += consumed;
+    this.needs.food = this.needs.food < 1 ? this.needs.food : 1;
+  };
+
+  Person.prototype.rest = function () {
+    this.needs.rest += 0.5;
+    this.needs.rest = this.needs.rest > 1 ? 1 : this.needs.rest;
+  };
+
+  Person.prototype.inhabit = function () {
+
+  };
+
+  Person.prototype.buyOnLocalMarket = function () {
+
+  };
+
+  Person.prototype.gatherResourceFromEnv = function () {
+
+  };
+
+  Person.prototype.tryToProduce = function () {
+
+  };
+
+  Person.prototype.findJob = function () {
     if (!this.job) {
       PersonDecider.findJob(this);
     }
-    this.work();
-    PersonDecider.checkPersonalStorage(this);
-    PersonDecider.makeGenericLiveDecision(this);
   };
 
+  Person.prototype.goToWork = function () {
+
+  };
+
+  Person.prototype.sellNeedlessResourcesToLocalMarket = function () {
+
+  };
+
+  Person.prototype.stealResource = function () {
+
+  };
+
+
+  Person.prototype.work = function () {
+    if (this.job) {
+      this.job.do(this);
+    }
+  };
+
+  Person.prototype.changeJob = function (newJob) {
+    if (this.job) {
+      this.job.setWorker(null);
+    }
+    if (newJob) {
+      newJob.setWorker(this);
+    }
+    this.job = newJob;
+  };
+
+  Person.prototype.isInterestedInJob = function (job) {
+    return true;
+  };
+
+
+  /*
   Person.prototype.eat = function () {
     if (this.resources.food > _config.base_daily_food_consumption) {
       this.needs.food += _config.base_daily_food_regeneration;
@@ -185,26 +343,6 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     }
   };
 
-  Person.prototype.work = function () {
-    if (this.job) {
-      this.job.do(this);
-    }
-  };
-
-  Person.prototype.changeJob = function (newJob) {
-    if (this.job) {
-      this.job.setWorker(null);
-    }
-    if (newJob) {
-      newJob.setWorker(this);
-    }
-    this.job = newJob;
-  };
-
-  Person.prototype.isInterestedInJob = function (job) {
-    return true;
-  };
-
   Person.prototype.getMostFulfillAbleTemporaryNeededResource = function (res_amounts) {
     var most_needed = null,
       most_needed_fulfillment = 0,
@@ -219,6 +357,7 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     }
     return most_needed;
   };
+  */
 
   /*
   Person.prototype.getSortedByPriorityAndGivenResAmountTemporaryNeededResourcesNames = function (res_amounts) {
