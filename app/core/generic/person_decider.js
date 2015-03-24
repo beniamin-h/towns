@@ -75,6 +75,9 @@ angular.module('towns').factory('PersonDecider', ['LocalMarket', 'JobsList', 'Ma
     var jobs = JobsList.getAvailableJobs(person);
     if (jobs.length) {
       person.changeJob(jobs[0]);
+      return true;
+    } else {
+      return false;
     }
   };
 

@@ -14,6 +14,10 @@ angular.module('towns').factory('HarvestFieldJob', ['Job', function (Job) {
 
   HarvestFieldJob.prototype.name = 'Harvesting a field';
   HarvestFieldJob.prototype.base_progress_increase = 0.25;
+  HarvestFieldJob.prototype.obtainable_resources = {
+    'straw': 1.0,
+    'grains': 0.1
+  };
 
   HarvestFieldJob.prototype.can_do = function (person) {
     var parent_result = Job.prototype.can_do.apply(this, arguments);

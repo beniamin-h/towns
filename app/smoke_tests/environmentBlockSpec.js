@@ -18,7 +18,7 @@ describe('EnvironmentBlock', function () {
       it('for max grass amount and none other resources ' +
     'returns specified resources amounts [case 1]', function () {
 
-      Environment.getEnvResourceInfo('grass')['exploitable_resources'] = {
+      Environment.getEnvResourceInfo('grass')['obtainable_resources'] = {
         straw: 0.1,
         grass: 0.8,
         grass_seeds: 0.05,
@@ -46,14 +46,14 @@ describe('EnvironmentBlock', function () {
     it('for max grass amount, some grains and none other resources ' +
     'returns specified resources amounts [case 2]', function () {
 
-      Environment.getEnvResourceInfo('grass')['exploitable_resources'] = {
+      Environment.getEnvResourceInfo('grass')['obtainable_resources'] = {
         straw: 1.0,
         grass: 0.8,
         grass_seeds: 1.0,
         grains: 0.0001
       };
       Environment.getEnvResourceInfo('grass')['max_amount'] = 5000;
-      Environment.getEnvResourceInfo('grains')['exploitable_resources'] = {
+      Environment.getEnvResourceInfo('grains')['obtainable_resources'] = {
         grass_seeds: 1.0,
         grains: 1.0
       };
@@ -79,17 +79,17 @@ describe('EnvironmentBlock', function () {
       expect(gathered_resources.gathered_amounts['grains']).toBe(0.019);
     });
 
-    it('for max grass amount, some grains and none other resources with other exploitable_resources' +
+    it('for max grass amount, some grains and none other resources with other obtainable_resources' +
     'returns specified resources amounts [case 3]', function () {
 
-      Environment.getEnvResourceInfo('grass')['exploitable_resources'] = {
+      Environment.getEnvResourceInfo('grass')['obtainable_resources'] = {
         straw: 1.0,
         grass: 0.8,
         grass_seeds: 1.0,
         grains: 0.1
       };
       Environment.getEnvResourceInfo('grass')['max_amount'] = 5000;
-      Environment.getEnvResourceInfo('grains')['exploitable_resources'] = {
+      Environment.getEnvResourceInfo('grains')['obtainable_resources'] = {
         grass_seeds: 0.5,
         grains: 1.0
       };
@@ -139,7 +139,7 @@ describe('EnvironmentBlock', function () {
     it('for a very little grains and none other resources ' +
     'returns specified resources amounts [case 5]', function () {
 
-      Environment.getEnvResourceInfo('grains')['exploitable_resources'] = {
+      Environment.getEnvResourceInfo('grains')['obtainable_resources'] = {
         grass_seeds: 0.5,
         grains: 1.0
       };
@@ -163,7 +163,7 @@ describe('EnvironmentBlock', function () {
     it('for not much grains and none other resources ' +
     'returns specified resources amounts [case 6]', function () {
 
-      Environment.getEnvResourceInfo('grains')['exploitable_resources'] = {
+      Environment.getEnvResourceInfo('grains')['obtainable_resources'] = {
         grass_seeds: 0.5,
         grains: 1.0
       };
@@ -185,9 +185,9 @@ describe('EnvironmentBlock', function () {
     });
 
     it('for some grains and none other resources ' +
-    'takes only exploitable_resources resources from it [case 7]', function () {
+    'takes only obtainable_resources resources from it [case 7]', function () {
 
-      Environment.getEnvResourceInfo('grains')['exploitable_resources'] = {
+      Environment.getEnvResourceInfo('grains')['obtainable_resources'] = {
         grass_seeds: 0.5,
         grains: 1.0
       };
@@ -209,7 +209,7 @@ describe('EnvironmentBlock', function () {
     it('for a very low max_gather_amount param ' +
     'returns values below or equal max_gather_amount [case 8]', function () {
 
-      Environment.getEnvResourceInfo('grains')['exploitable_resources'] = {
+      Environment.getEnvResourceInfo('grains')['obtainable_resources'] = {
         grass_seeds: 0.5,
         grains: 1.0
       };
@@ -231,7 +231,7 @@ describe('EnvironmentBlock', function () {
     it('for a very low gather_base_divisor param and Infinity as max_gather_amount ' +
     'returns high values [case 9]', function () {
 
-      Environment.getEnvResourceInfo('grains')['exploitable_resources'] = {
+      Environment.getEnvResourceInfo('grains')['obtainable_resources'] = {
         grass_seeds: 0.5,
         grains: 1.0
       };

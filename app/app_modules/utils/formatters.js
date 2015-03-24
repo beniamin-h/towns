@@ -12,6 +12,6 @@ angular.module('towns').factory('Formatters', function () {
     round: function (value, numbers_after_comma) {
       return Math.round(value, numbers_after_comma);
     },
-    _factory: this
+    _instance: this
   };
 });

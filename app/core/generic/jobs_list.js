@@ -36,6 +36,9 @@ angular.module('towns').factory('JobsList', function () {
     },
     getAvailableJobs: function (person) {
       return jobs_list.getAvailableJobs(person);
+    },
+    getAllJobs: function () {
+      return jobs_list.jobs;
     }
   };
 });

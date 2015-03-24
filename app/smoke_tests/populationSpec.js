@@ -33,15 +33,15 @@ describe('populationProvider', function(){
 
   describe('processTick', function(){
     it('causes immigration', function(){
-      populationProvider._factory.immigrate = jasmine.createSpy('immigrateFunc');
+      populationProvider._instance.immigrate = jasmine.createSpy('immigrateFunc');
       populationProvider.setupInitialPopulation(15);
       populationProvider.processTick();
 
-      expect(populationProvider._factory.immigrate).toHaveBeenCalled();
+      expect(populationProvider._instance.immigrate).toHaveBeenCalled();
     });
 
     it('cause population increase if immigration rate is 1.0', function(){
-      populationProvider._factory.config.immigration_rate = 1.0;
+      populationProvider._instance.config.immigration_rate = 1.0;
       populationProvider.setupInitialPopulation(15);
 
       var _random = Math.random;

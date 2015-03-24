@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('towns').factory('initProvider', ['populationProvider', 'buildingsProvider', 'mapProvider',
-                         'environmentProvider', 'PopulationConfig', '$interval',
+                         'environmentProvider', 'PopulationConfig', 'Resources', '$interval',
     function(populationProvider, buildingsProvider, mapProvider, environmentProvider, PopulationConfig,
-             $interval) {
+             Resources, $interval) {
   var that = this;
 
   return {
@@ -30,7 +30,8 @@ angular.module('towns').factory('initProvider', ['populationProvider', 'building
     processTicks: function () {
       populationProvider.processTick();
       buildingsProvider.processTick();
+      Resources.regenerateResourcesObtainableJobs(); //TODO: should be here ?
     },
-    _factory: this
+    _instance: this
   };
 }]);

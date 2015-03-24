@@ -27,7 +27,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         games: 0.7
       },
       max_amount: 500000,
-      exploitable_resources: {},
+      obtainable_resources: {},
       occurrence_requirements: {
         water: 0.1
       },
@@ -55,7 +55,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         games: -0.4
       },
       max_amount: 5000,
-      exploitable_resources: {
+      obtainable_resources: {
         straw: 0.1,
         grass: 1.0,
         grass_seeds: 0.05,
@@ -98,7 +98,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         games: -0.1
       },
       max_amount: 10000,
-      exploitable_resources: {
+      obtainable_resources: {
         tree_seeds: 0.05,
         wood_branches: 1.0,
         soft_wood: 0.9,
@@ -141,7 +141,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         grass: -1.0
       },
       max_amount: 1000000,
-      exploitable_resources: {
+      obtainable_resources: {
         sand: 0.02,
         stone: 1.0
       },
@@ -167,7 +167,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
       },
       growth_other_resources_impact: {},
       max_amount: 100000,
-      exploitable_resources: {
+      obtainable_resources: {
         iron_ore: 1.0
       },
       occurrence_requirements: {
@@ -187,7 +187,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         grass: 0.8
       },
       max_amount: 100000,
-      exploitable_resources: {
+      obtainable_resources: {
         coal: 1.0
       }
     },
@@ -209,7 +209,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         games: -0.3
       },
       max_amount: 1000,
-      exploitable_resources: {
+      obtainable_resources: {
         grains: 1.0
       },
       occurrence_requirements: {
@@ -241,7 +241,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         games: 1.0
       },
       max_amount: 10000,
-      exploitable_resources: {
+      obtainable_resources: {
         animals: 1.0,
         fur: 0.05,
         eggs: 0.1,
@@ -284,7 +284,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         games: -0.5
       },
       max_amount: 50000,
-      exploitable_resources: {
+      obtainable_resources: {
         wood_branches: 0.8,
         fruits: 1.0,
         fruits_seeds: 0.05
@@ -321,7 +321,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         games: -0.4
       },
       max_amount: 75000,
-      exploitable_resources: {
+      obtainable_resources: {
         wood_branches: 0.7,
         vegetables: 1.0,
         vegetables_seeds: 0.05
@@ -358,7 +358,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         games: -0.1
       },
       max_amount: 1000000,
-      exploitable_resources: {
+      obtainable_resources: {
         sand: 0.1,
         fresh_water: 1.0
       },
@@ -384,7 +384,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         grass: 0.05
       },
       max_amount: 100000,
-      exploitable_resources: {
+      obtainable_resources: {
         clay: 1.0
       },
       occurrence_requirements: {
@@ -415,7 +415,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
         games: -0.1
       },
       max_amount: 1000,
-      exploitable_resources: {
+      obtainable_resources: {
         wood_branches: 0.1,
         herbs_seeds: 0.05,
         herbs: 1.0

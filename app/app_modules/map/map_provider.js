@@ -85,6 +85,6 @@ angular.module('towns').factory('mapProvider', ['_map_config', 'Math', 'ArrayUti
     setBlockBuilding: function (block_index, building) {
       that.blocks[block_index].building = building;
     },
-    _factory: this
+    _instance: this
   };
 }]);

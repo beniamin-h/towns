@@ -13,6 +13,6 @@ angular.module('towns').factory('DictUtils', function () {
         }
       }
     },
-    _factory: this
+    _instance: this
   };
 });

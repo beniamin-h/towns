@@ -19,10 +19,6 @@ angular.module('towns').factory('Government', ['Person', function (Person) {
 
   Government.prototype.live = function () {};
 
-  Person.prototype.isInterestedInJob = function (job) {
-    return false;
-  };
-
   var government = new Government();
 
   return {
