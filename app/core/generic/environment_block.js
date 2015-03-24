@@ -1,8 +1,8 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 'GatherJob', 'Resources',
-  function (Environment, JobsList, GatherJob, Resources) {
+angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 'GatherFruitsJob', 'Resources',
+  function (Environment, JobsList, GatherFruitsJob, Resources) {
 
   var EnvironmentBlock = function (map_index) {
     this.map_index = map_index;
@@ -32,14 +32,14 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 
           this._calculateGatherPersonRatio(person)),
         this.resources[res_name]);
 
-      for (var exploitable_resource_name in Environment.getEnvResourceInfo(res_name).exploitable_resources) {
-        gathered_amounts[exploitable_resource_name] = gathered_amounts[exploitable_resource_name] || 0;
+      for (var obtainable_resource_name in Environment.getEnvResourceInfo(res_name).obtainable_resources) {
+        gathered_amounts[obtainable_resource_name] = gathered_amounts[obtainable_resource_name] || 0;
         var res_amount = gather_amount *
-          Environment.getEnvResourceInfo(res_name).exploitable_resources[exploitable_resource_name] *
-          Resources.getResourceInfo(exploitable_resource_name).gathering_accessibility;
-        if (res_amount > gathered_amounts[exploitable_resource_name]) {
-          gathered_amounts[exploitable_resource_name] = res_amount;
-          gathered_from[exploitable_resource_name] = res_name;
+          Environment.getEnvResourceInfo(res_name).obtainable_resources[obtainable_resource_name] *
+          Resources.getResourceInfo(obtainable_resource_name).gathering_accessibility;
+        if (res_amount > gathered_amounts[obtainable_resource_name]) {
+          gathered_amounts[obtainable_resource_name] = res_amount;
+          gathered_from[obtainable_resource_name] = res_name;
         }
       }
     }
@@ -64,10 +64,10 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 
       this.resources[res_name]);
 
     this.resources[res_name] -= gather_amount * (Math.random() * 0.5 + 0.75);
-    for (var exploitable_resource_name in Environment.getEnvResourceInfo(res_name).exploitable_resources) {
-      gathered_amounts[exploitable_resource_name] = gather_amount *
-        Environment.getEnvResourceInfo(res_name).exploitable_resources[exploitable_resource_name] *
-          Resources.getResourceInfo(exploitable_resource_name).gathering_accessibility *
+    for (var obtainable_resource_name in Environment.getEnvResourceInfo(res_name).obtainable_resources) {
+      gathered_amounts[obtainable_resource_name] = gather_amount *
+        Environment.getEnvResourceInfo(res_name).obtainable_resources[obtainable_resource_name] *
+          Resources.getResourceInfo(obtainable_resource_name).gathering_accessibility *
         (Math.random() * 0.5 + 0.5);
     }
 
@@ -96,7 +96,7 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 
   EnvironmentBlock.prototype.setExplored = function () {
     this.explored = true;
     for (var i = 0; i < this.gather_jobs_count; i++) {
-      JobsList.addJob(new GatherJob(this, null));
+      JobsList.addJob(new GatherFruitsJob(this, null));
     }
   };
 

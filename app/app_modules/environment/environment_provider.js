@@ -36,6 +36,6 @@ angular.module('towns').factory('environmentProvider', ['EnvironmentBlock', 'Env
     getAllBlocks: function () {
       return that.blocks;
     },
-    _factory: this
+    _instance: this
   };
 }]);

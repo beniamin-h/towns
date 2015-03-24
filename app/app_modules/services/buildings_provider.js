@@ -57,6 +57,6 @@ angular.module('towns').factory('buildingsProvider', [
     processTick: function() {
       that.processTick();
     },
-    _factory: this
+    _instance: this
   };
 }]);

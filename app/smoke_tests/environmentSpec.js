@@ -45,11 +45,11 @@ describe('Environment', function () {
     describe('has each resource in resources property which', function () {
 
       it('does not have any other keys than [growth_speed, growth_depends_on_neighbor_blocks, ' +
-         'growth_seasons_impact, growth_other_resources_impact, max_amount, exploitable_resources, ' +
+         'growth_seasons_impact, growth_other_resources_impact, max_amount, obtainable_resources, ' +
          'occurrence_requirements, occurrence_impact, block_type_occurrence_impact]', function () {
         for (var res in env.resources) {
           var expected_keys = ['growth_speed', 'growth_depends_on_neighbor_blocks',
-            'growth_seasons_impact', 'growth_other_resources_impact', 'max_amount', 'exploitable_resources',
+            'growth_seasons_impact', 'growth_other_resources_impact', 'max_amount', 'obtainable_resources',
             'occurrence_requirements', 'occurrence_impact', 'block_type_occurrence_impact'];
           Object.keys(env.resources[res]).forEach(function (_key) {
             expect(expected_keys.indexOf(_key) !== -1).toBeTruthy();
@@ -152,17 +152,17 @@ describe('Environment', function () {
         }
       });
 
-      it('has exploitable_resources defined as a object', function () {
+      it('has obtainable_resources defined as a object', function () {
         for (var res in env.resources) {
-          expect(env.resources[res].exploitable_resources).toEqual(jasmine.any(Object));
-          expect(env.resources[res].exploitable_resources).not.toBeUndefined();
+          expect(env.resources[res].obtainable_resources).toEqual(jasmine.any(Object));
+          expect(env.resources[res].obtainable_resources).not.toBeUndefined();
         }
       });
 
-      it('is defined as follows: exploitable_resources values are Numbers', function () {
+      it('is defined as follows: obtainable_resources values are Numbers', function () {
         for (var res in env.resources) {
-          for (var res_name in env.resources[res].exploitable_resources) {
-            expect(env.resources[res].exploitable_resources[res_name]).toEqual(jasmine.any(Number));
+          for (var res_name in env.resources[res].obtainable_resources) {
+            expect(env.resources[res].obtainable_resources[res_name]).toEqual(jasmine.any(Number));
           }
         }
       });
@@ -1901,7 +1901,7 @@ describe('Environment', function () {
                   autumn: 0.8
                 },
                 max_amount: 500,
-                exploitable_resources: {}
+                obtainable_resources: {}
               },
               res_xyz: {
                 growth_speed: 0.05,
@@ -1913,7 +1913,7 @@ describe('Environment', function () {
                   autumn: 0.8
                 },
                 max_amount: 10,
-                exploitable_resources: {},
+                obtainable_resources: {},
                 occurrence_impact: {
                   res_abc: 0.7
                 }

@@ -24,7 +24,7 @@
             <div class="population-list-cell int">{{ floatToPercents(person.needs.work) }}</div>
             <div class="population-list-cell int">{{ round(person.money) }}</div>
             <div class="population-list-cell job-name">
-                {{ person.job.readable_name || 'Idling' }}
+                {{ person.job.name || 'Idling' }}
                 ({{ floatToPercents(person.job.current_progress || 0) }}%)
             </div>
         </div>

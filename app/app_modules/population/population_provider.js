@@ -38,6 +38,6 @@ angular.module('towns').factory('populationProvider', ['Person', 'Math', 'Popula
         that.people.push(new Person(null, null, environmentProvider.getTownBlock()));
       }
     },
-    _factory: this
+    _instance: this
   };
 }]);

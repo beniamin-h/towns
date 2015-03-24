@@ -1,9 +1,20 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('Resources', ['Math', function (Math) {
+angular.module('towns').factory('Resources', ['Math', 'Environment', 'JobsList', function (Math, Environment, JobsList) {
 
   var Resources = function () {
+    this._setupResourcesGroupsReversedMapping();
+    this.regenerateResourcesObtainableJobs();
+  };
+
+  Resources.prototype.resources_groups_mapping = {
+    food: {
+      eggs: 0.08,
+      meat: 0.1,
+      fruits: 0.05,
+      vegetables: 0.04
+    }
   };
 
   Resources.prototype.resources = {
@@ -196,8 +207,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
         stone: 1.2,
         iron: 1.2,
         steel: 1.2
-      },
-      is_eatable: true
+      }
     },
 
     meat:{
@@ -209,8 +219,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
         stone: 1,
         iron: 1.5,
         steel: 2
-      },
-      is_eatable: true
+      }
     },
 
     wool:{
@@ -282,8 +291,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
         stone: 2.5,
         iron: 2.7,
         steel: 2.8
-      },
-      is_eatable: true
+      }
     },
 
     fruits_seeds:{
@@ -307,8 +315,7 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
         stone: 2,
         iron: 2.5,
         steel: 3
-      },
-      is_eatable: true
+      }
     },
 
     vegetables_seeds:{
@@ -369,16 +376,76 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
         iron: 2.2,
         steel: 2.3
       }
+    },
+
+    clothing: {
+      display_name: 'Clothing'
     }
   };
 
-  Resources.prototype._setupEatableResourcesList = function (res_info, amounts) {
-    var that = this;
-    this.eatable_resources = Object.keys(this.resources).reduce(function (list, res_name) {
-      if (that.resources[res_name].is_eatable) {
-        list.push(res_name);
+  Resources.prototype._setupResourcesGroupsReversedMapping = function () {
+    this.resources_groups_reversed_mapping = {};
+    for (var group_name in this.resources_groups_mapping) {
+      for (var res_name in this.resources_groups_mapping[group_name]) {
+        this.resources_groups_reversed_mapping[res_name] = group_name;
       }
-    }, []);
+    }
+  };
+
+  Resources.prototype.regenerateResourcesObtainableJobs = function () {
+    var that = this;
+    this.resources_obtainable_jobs = Object.keys(this.resources).reduce(function (dict, res_name) {
+      dict[res_name] = [];
+      return dict;
+    }, {});
+    JobsList.getAllJobs().forEach(function (job) {
+      for (var res_name in job.obtainable_resources) {
+        that.resources_obtainable_jobs[res_name].append(job);
+      }
+    });
+    for (var res_name in that.resources_obtainable_jobs) {
+      that.resources_obtainable_jobs[res_name] = that.resources_obtainable_jobs[res_name].sort(function (job_a, job_b) {
+        return job_a.obtainable_resources[res_name] > job_b.obtainable_resources[res_name] ? -1 : 1;
+      });
+    }
+  };
+
+  Resources.prototype.getBestResourceObtainableJobForPerson = function (person, needs) {
+    var most_need_satisfaction = {
+        job: null,
+        satisfaction: 0
+      },
+      that = this;
+
+    needs.forEach(function (needed_res) {
+      var res_group_name = that.resources_groups_mapping[needed_res.res_name],
+        resources = {};
+
+      if (res_group_name) {
+        resources = that.resources_groups_mapping[res_group_name];
+      } else {
+        resources[needed_res.res_name] = 1.0;
+      }
+
+      for (var needed_res_name in resources) {
+        for (var i = 0; i < that.resources_obtainable_jobs[needed_res_name].length; i++) {
+          var job = that.resources_obtainable_jobs[needed_res_name][i];
+          if ((job.giver == person || !job.worker)) {
+            var need_satisfaction =
+              job.obtainable_resources[needed_res_name] * needed_res_name.amount * resources[needed_res_name];
+            if (need_satisfaction > most_need_satisfaction.satisfaction) {
+              most_need_satisfaction = {
+                job: job,
+                satisfaction: need_satisfaction
+              };
+            }
+            break;
+          }
+        }
+      }
+    });
+
+    return most_need_satisfaction.job;
   };
 
   var resources = new Resources();
@@ -390,11 +457,14 @@ angular.module('towns').factory('Resources', ['Math', function (Math) {
     getResourceInfo: function (res_name) {
       return resources.resources[res_name];
     },
-    getEatableResourcesNames: function () {
-      return resources.eatable_resources;
+    getBestResourceObtainableJobForPerson: function (person, needs) {
+      return resources.getBestResourceObtainableJobForPerson(person, needs);
     },
     getEnvResourceGrowth: function (resource_type, resource_amount) {
 
+    },
+    regenerateResourcesObtainableJobs: function () {
+      resources.regenerateResourcesObtainableJobs();
     },
     _instance: resources
   };

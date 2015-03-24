@@ -2,8 +2,7 @@
 
 angular.module('towns.resources_info', ['ui.bootstrap'])
 
-.controller('ResourcesInfo', ['$scope', 'resourcesProvider', function($scope, resourcesProvider) {
-  $scope.getResourceAmount = resourcesProvider.getResourceAmount;
-  $scope.resources_types = resourcesProvider.getAllResourcesTypes();
+.controller('ResourcesInfo', ['$scope', 'governmentStorage', function($scope, governmentStorage) {
+  $scope.resources = governmentStorage.getResources();
 
 }]);

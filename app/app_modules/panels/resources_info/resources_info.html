@@ -1,3 +1,3 @@
 <div class="resources_info">
-    <div ng-repeat="resource in resources_types">{{ resource }}: {{ getResourceAmount(resource) }}</div>
+    <div ng-repeat="(res_name, amount) in resources">{{ res_name }}: {{ amount }}</div>
 </div>
