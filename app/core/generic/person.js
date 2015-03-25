@@ -161,9 +161,9 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     this.recalculatePersonalNeeds();
     this.sellNeedlessResourcesToLocalMarket();
     this.tryToSatisfyNeeds();
-    if (this.findJob()) {
+    //if (this.findJob()) {
       this.work();
-    }
+    //}
   };
 
   Person.prototype.consumeDailyResources = function () {
@@ -198,21 +198,27 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
   };
 
   Person.prototype.eat = function () {
-    var consumed;
-    this.resources['food'] = this.resources['food'] || 0; // TODO: not food !!
-    if (this.resources['food'] > 1) {
-      consumed = 0.1;
-    } else if (this.resources['food'] > 0.5) {
-      consumed = this.resources['food'] * 0.1;
-    } else if (this.resources['food'] > 0.05) {
-      consumed = 0.05;
-    } else {
-      consumed = this.resources['food'];
-    }
+    var food_resources = Resources.getResourcesGroupsMapping()['food'];
+    for (var res_name in food_resources) {
+      var consumed;
+      this.resources[res_name] = this.resources[res_name] || 0; // TODO: not here !!
+      if (this.resources[res_name] > 1) {
+        consumed = 1;
+      } else if (this.resources[res_name] > 0.5) {
+        consumed = this.resources[res_name];
+      } else if (this.resources[res_name] > 0.05) {
+        consumed = 0.5;
+      } else {
+        consumed = this.resources[res_name] * 10;
+      }
 
-    this.resources['food'] -= consumed;
-    this.needs.food += consumed;
-    this.needs.food = Math.min(1, this.needs.food);
+      this.resources[res_name] -= consumed;
+      this.needs.food += consumed * food_resources[res_name] * 1; // TODO: customize factor
+      this.needs.food = Math.min(1, this.needs.food);
+      if (consumed >= 0.1) {
+        break;
+      }
+    }
   };
 
   Person.prototype.wear = function () {
@@ -278,6 +284,10 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
       }
     });
 
+    if (this.job) {
+      return;
+    }
+
     needs = needs.filter(function (res) { return res.amount > 0; });
 
     if (needs.length > 0) {
@@ -292,12 +302,19 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
   };
 
   Person.prototype.getNeededResources = function () {
-    var needs = [];
+    var that = this,
+      needs = [],
+      res_groups_map = Resources.getResourcesGroupsMapping();
     for (var res_name in this.safe_resources_amounts) {
-      if (this.resources[res_name] < this.safe_resources_amounts[res_name].min) {
+      var total_res_amount = (res_groups_map[res_name] ? Object.keys(res_groups_map[res_name]).reduce(
+        function (total_amount, res_name) {
+          total_amount += that.resources[res_name];
+          return total_amount;
+      }, 0) : this.resources[res_name]);
+      if (total_res_amount < this.safe_resources_amounts[res_name].min) {
         needs.push({
           res_name: res_name,
-          amount: this.safe_resources_amounts[res_name].max - this.resources[res_name]
+          amount: this.safe_resources_amounts[res_name].max - total_res_amount
         });
       }
     }

@@ -10,8 +10,8 @@ angular.module('towns').factory('Resources', ['Math', 'Environment', 'JobsList',
 
   Resources.prototype.resources_groups_mapping = {
     food: {
-      eggs: 0.08,
       meat: 0.1,
+      eggs: 0.08,
       fruits: 0.05,
       vegetables: 0.04
     }
@@ -400,7 +400,7 @@ angular.module('towns').factory('Resources', ['Math', 'Environment', 'JobsList',
     }, {});
     JobsList.getAllJobs().forEach(function (job) {
       for (var res_name in job.obtainable_resources) {
-        that.resources_obtainable_jobs[res_name].append(job);
+        that.resources_obtainable_jobs[res_name].push(job);
       }
     });
     for (var res_name in that.resources_obtainable_jobs) {
@@ -418,21 +418,20 @@ angular.module('towns').factory('Resources', ['Math', 'Environment', 'JobsList',
       that = this;
 
     needs.forEach(function (needed_res) {
-      var res_group_name = that.resources_groups_mapping[needed_res.res_name],
-        resources = {};
+      var resources = {};
 
-      if (res_group_name) {
-        resources = that.resources_groups_mapping[res_group_name];
+      if (that.resources_groups_mapping[needed_res.res_name]) {
+        resources = that.resources_groups_mapping[needed_res.res_name];
       } else {
         resources[needed_res.res_name] = 1.0;
       }
 
-      for (var needed_res_name in resources) {
-        for (var i = 0; i < that.resources_obtainable_jobs[needed_res_name].length; i++) {
-          var job = that.resources_obtainable_jobs[needed_res_name][i];
-          if ((job.giver == person || !job.worker)) {
+      for (var res_name in resources) {
+        for (var i = 0; i < that.resources_obtainable_jobs[res_name].length; i++) {
+          var job = that.resources_obtainable_jobs[res_name][i];
+          if (job.giver == person || !job.worker) {
             var need_satisfaction =
-              job.obtainable_resources[needed_res_name] * needed_res_name.amount * resources[needed_res_name];
+              job.obtainable_resources[res_name] * needed_res.amount * resources[res_name];
             if (need_satisfaction > most_need_satisfaction.satisfaction) {
               most_need_satisfaction = {
                 job: job,
@@ -465,6 +464,9 @@ angular.module('towns').factory('Resources', ['Math', 'Environment', 'JobsList',
     },
     regenerateResourcesObtainableJobs: function () {
       resources.regenerateResourcesObtainableJobs();
+    },
+    getResourcesGroupsMapping: function () {
+      return resources.resources_groups_mapping;
     },
     _instance: resources
   };
