@@ -28,7 +28,6 @@ angular.module('towns').factory('CultivateFieldJob', ['Job', function (Job) {
     this.current_progress = this.workplace.cultivating_progress;
     if (this.workplace.cultivating_progress >= 1.0) {
       this.workplace.finish_cultivating();
-      this.finishJob();
     }
   };
 

@@ -32,7 +32,6 @@ angular.module('towns').factory('HarvestFieldJob', ['Job', function (Job) {
     this.current_progress = this.workplace.harvesting_progress;
     if (this.workplace.harvesting_progress >= 1.0) {
       this.workplace.finish_harvesting();
-      this.finishJob();
     }
   };
 

@@ -25,6 +25,14 @@ angular.module('towns').factory('JobsList', function () {
     return jobs;
   };
 
+  JobsList.prototype.clearDoneJobs = function (person) {
+    this.jobs.forEach(function (job) {
+      if(job.current_progress >= 1.0) {
+        job.finishJob();
+      }
+    });
+  };
+
   var jobs_list = new JobsList();
 
   return {
@@ -39,6 +47,9 @@ angular.module('towns').factory('JobsList', function () {
     },
     getAllJobs: function () {
       return jobs_list.jobs;
+    },
+    clearDoneJobs: function () {
+      jobs_list.clearDoneJobs();
     }
   };
 });

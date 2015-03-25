@@ -23,7 +23,6 @@ angular.module('towns').factory('BuildJob', ['Job', function (Job) {
     this.current_progress = this.workplace.constructing_progress;
     if (this.workplace.constructing_progress >= 1.0) {
       this.workplace.finish_constructing();
-      this.finishJob();
     }
   };
 
