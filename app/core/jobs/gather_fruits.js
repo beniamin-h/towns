@@ -16,6 +16,9 @@ angular.module('towns').factory('GatherFruitsJob', ['Job', 'Resources', 'LocalMa
 
   GatherFruitsJob.prototype.name = 'Gather fruits';
   GatherFruitsJob.prototype.base_progress_increase = 0.25;
+  GatherFruitsJob.prototype.obtainable_resources = {
+    fruits: 1.0
+  };
 
   GatherFruitsJob.prototype.can_do = function (person) {
     var parent_result = Job.prototype.can_do.apply(this, arguments);
@@ -36,10 +39,11 @@ angular.module('towns').factory('GatherFruitsJob', ['Job', 'Resources', 'LocalMa
         person, this.current_gathering_resource);
 
       for (var res_name in gathered_resources) {
-        person.resources['food'] = person.resources['food'] || 0; // TODO: not food !!
-        person.resources['food'] += gathered_resources[res_name];
+        person.resources[res_name] = person.resources[res_name] || 0; // TODO: defaulting to 0 not here !!
+        person.resources[res_name] += gathered_resources[res_name];
       }
     }
+
   };
 
   return GatherFruitsJob;

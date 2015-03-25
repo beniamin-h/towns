@@ -93,7 +93,7 @@ angular.module('towns.map', ['ui.bootstrap'])
 
   $scope.mapWindowScrollHovered = function (side) {
     if (side) {
-      scroll_timeout = $timeout(function() { scroll_window(side, 1) }, 200);
+      scroll_timeout = $timeout(function() { scroll_window(side, 1) }, 500);
     } else {
       $timeout.cancel(scroll_timeout);
       $scope.window_scroll_offsets.top =
