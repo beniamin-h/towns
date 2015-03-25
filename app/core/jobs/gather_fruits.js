@@ -39,7 +39,6 @@ angular.module('towns').factory('GatherFruitsJob', ['Job', 'Resources', 'LocalMa
         person.resources['food'] = person.resources['food'] || 0; // TODO: not food !!
         person.resources['food'] += gathered_resources[res_name];
       }
-      this.finishJob();
     }
   };
 
