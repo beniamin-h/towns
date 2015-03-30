@@ -140,7 +140,9 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     this.buildings = [];
     this.temporary_resources_needs = {};
     this.safe_resources_amounts = {
-      food: {min: 5, max: 15},
+      food: {min: 10, max: 25},
+      fruits: {min: 3, max: 6},
+      vegetables: {min: 3, max: 6},
       clothing: {min: 2, max: 3}
     };
   };
@@ -198,27 +200,31 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
   };
 
   Person.prototype.eat = function () {
-    var food_resources = Resources.getResourcesGroupsMapping()['food'];
+    var food_resources = Resources.getResourcesGroupsMapping()['food'],
+      consumed_food = 0;
     for (var res_name in food_resources) {
-      var consumed;
+      var consumed_resource;
       this.resources[res_name] = this.resources[res_name] || 0; // TODO: not here !!
-      if (this.resources[res_name] > 1) {
-        consumed = 1;
-      } else if (this.resources[res_name] > 0.5) {
-        consumed = this.resources[res_name];
-      } else if (this.resources[res_name] > 0.05) {
-        consumed = 0.5;
+      if (this.resources[res_name] == 0) {
+        continue;
       } else {
-        consumed = this.resources[res_name] * 10;
+        if (this.resources[res_name] > 1.0) {
+          consumed_resource = 0.5;
+        } else {
+          consumed_resource = this.resources[res_name] * this.resources[res_name] / 2;
+        }
       }
 
-      this.resources[res_name] -= consumed;
-      this.needs.food += consumed * food_resources[res_name] * 1; // TODO: customize factor
-      this.needs.food = Math.min(1, this.needs.food);
-      if (consumed >= 0.1) {
+      consumed_food += consumed_resource * food_resources[res_name];
+
+      this.resources[res_name] -= consumed_resource;
+      if (consumed_food >= 2) {
         break;
       }
     }
+
+    this.needs.food = (this.needs.food + consumed_food) / 2; // TODO: customize factor
+    this.needs.food = Math.min(1, this.needs.food);
   };
 
   Person.prototype.wear = function () {

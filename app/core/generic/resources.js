@@ -10,10 +10,10 @@ angular.module('towns').factory('Resources', ['Math', 'Environment', 'JobsList',
 
   Resources.prototype.resources_groups_mapping = {
     food: {
-      meat: 0.1,
-      eggs: 0.08,
-      fruits: 0.05,
-      vegetables: 0.04
+      meat: 0.5,
+      eggs: 0.4,
+      fruits: 0.3,
+      vegetables: 0.35
     }
   };
 

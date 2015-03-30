@@ -3,33 +3,33 @@
  */
 
 
-angular.module('towns').factory('GatherFruitsJob', ['Job', 'Resources', 'LocalMarket', 'Math',
+angular.module('towns').factory('GatherVegetablesJob', ['Job', 'Resources', 'LocalMarket', 'Math',
   function (Job, Resources, LocalMarket, Math) {
 
-  var GatherFruitsJob = function () {
+  var GatherVegetablesJob = function () {
     Job.apply(this, arguments);
     this.current_gathering_resource = null;
   };
 
-  GatherFruitsJob.prototype = Object.create(Job.prototype);
-  GatherFruitsJob.prototype.constructor = GatherFruitsJob;
+  GatherVegetablesJob.prototype = Object.create(Job.prototype);
+  GatherVegetablesJob.prototype.constructor = GatherVegetablesJob;
 
-  GatherFruitsJob.prototype.name = 'Gather fruits';
-  GatherFruitsJob.prototype.base_progress_increase = 1.0;
-  GatherFruitsJob.prototype.obtainable_resources = {
-    fruits: 1.0
+  GatherVegetablesJob.prototype.name = 'Gather vegetables';
+  GatherVegetablesJob.prototype.base_progress_increase = 1.0;
+  GatherVegetablesJob.prototype.obtainable_resources = {
+    vegetables: 1.0
   };
 
-  GatherFruitsJob.prototype.can_do = function (person) {
+  GatherVegetablesJob.prototype.can_do = function (person) {
     var parent_result = Job.prototype.can_do.apply(this, arguments);
     return parent_result;
   };
 
-  GatherFruitsJob.prototype['do'] = function (person) {
+  GatherVegetablesJob.prototype['do'] = function (person) {
     Job.prototype.do.apply(this, arguments);
 
     if (this.current_progress == 0) {
-      this.current_gathering_resource = 'fruits';
+      this.current_gathering_resource = 'vegetables';
     }
 
     this.current_progress += this.base_progress_increase;
@@ -46,5 +46,5 @@ angular.module('towns').factory('GatherFruitsJob', ['Job', 'Resources', 'LocalMa
 
   };
 
-  return GatherFruitsJob;
+  return GatherVegetablesJob;
 }]);

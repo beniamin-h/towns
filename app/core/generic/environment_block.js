@@ -1,8 +1,9 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 'GatherFruitsJob', 'Resources',
-  function (Environment, JobsList, GatherFruitsJob, Resources) {
+angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList',
+    'GatherFruitsJob', 'GatherVegetablesJob', 'Resources',
+  function (Environment, JobsList, GatherFruitsJob, GatherVegetablesJob, Resources) {
 
   var EnvironmentBlock = function (map_index) {
     this.map_index = map_index;
@@ -97,6 +98,7 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList', 
     this.explored = true;
     for (var i = 0; i < this.gather_jobs_count; i++) {
       JobsList.addJob(new GatherFruitsJob(this, null));
+      JobsList.addJob(new GatherVegetablesJob(this, null));
     }
   };
 
