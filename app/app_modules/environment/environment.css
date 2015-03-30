@@ -23,7 +23,7 @@
   border-color: #999;
 }
 
-.env-block.env-block-castle {
+.env-block.env-block-town {
   background-image: url(/app/images/icons/castle.svg);
   background-size: 25px;
 }

@@ -5,7 +5,7 @@ angular.module('towns').factory('environmentProvider', ['EnvironmentBlock', 'Env
   var that = this;
 
   this.blocks = [];
-  this.town_block = null;
+  this.player_town_block = null;
 
   return {
     getMapWidth: function () {
@@ -18,11 +18,9 @@ angular.module('towns').factory('environmentProvider', ['EnvironmentBlock', 'Env
       var blocks_count = this.getMapWidth() * this.getMapHeight(),
         map_center_index = this.getBlockIndexByXY(this.getMapWidth() / 2, this.getMapHeight() / 2);
       for (var i = 0; i < blocks_count; i++) {
-        var env_block = new EnvironmentBlock(i);
+        var env_block = new EnvironmentBlock(i, i == map_center_index);
         if (i == map_center_index) {
-          env_block.code = 'castle';
-          env_block.setExplored();
-          that.town_block = env_block;
+          that.player_town_block = env_block;
         }
         that.blocks.push(env_block);
       }
@@ -30,8 +28,8 @@ angular.module('towns').factory('environmentProvider', ['EnvironmentBlock', 'Env
     getBlockIndexByXY: function (x, y) {
       return y * EnvironmentConfig.map_dim.x + x;
     },
-    getTownBlock: function () {
-      return that.town_block;
+    getPlayerTownBlock: function () {
+      return that.player_town_block;
     },
     getAllBlocks: function () {
       return that.blocks;

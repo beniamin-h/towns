@@ -19,7 +19,7 @@ angular.module('towns').factory('populationProvider', ['Person', 'Math', 'Popula
 
   this.immigrate = function () {
     if (Math.random() < this.config.immigration_rate) {
-      this.people.push(new Person(null, null, environmentProvider.getTownBlock()));
+      this.people.push(new Person(null, null, environmentProvider.getPlayerTownBlock()));
     }
   };
 
@@ -35,7 +35,7 @@ angular.module('towns').factory('populationProvider', ['Person', 'Math', 'Popula
     },
     setupInitialPopulation: function (count) {
       for (var i = 0; i < count; i++) {
-        that.people.push(new Person(null, null, environmentProvider.getTownBlock()));
+        that.people.push(new Person(null, null, environmentProvider.getPlayerTownBlock()));
       }
     },
     _instance: this

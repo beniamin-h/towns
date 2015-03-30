@@ -5,9 +5,13 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList',
     'GatherFruitsJob', 'GatherVegetablesJob', 'Resources',
   function (Environment, JobsList, GatherFruitsJob, GatherVegetablesJob, Resources) {
 
-  var EnvironmentBlock = function (map_index) {
+  var EnvironmentBlock = function (map_index, is_player_town_env_block) {
     this.map_index = map_index;
     this.resources = Environment.getEnvResourcesInitialAmounts();
+    if (is_player_town_env_block) {
+      this.code = 'town';
+      this.setExplored();
+    }
   };
 
   EnvironmentBlock.prototype.map_index = -1;
