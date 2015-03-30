@@ -7,6 +7,7 @@ angular.module('towns').factory('HarvestFieldJob', ['Job', function (Job) {
 
   var HarvestFieldJob = function () {
     Job.apply(this, arguments);
+    this._class = HarvestFieldJob;
   };
 
   HarvestFieldJob.prototype = Object.create(Job.prototype);

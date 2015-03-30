@@ -1,7 +1,7 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('JobsList', function () {
+angular.module('towns').factory('JobsList', ['Resources', function (Resources) {
 
   var JobsList = function () {
     this.jobs = [];
@@ -14,6 +14,7 @@ angular.module('towns').factory('JobsList', function () {
 
   JobsList.prototype.addJob = function (job) {
     this.jobs.push(job);
+    Resources.regenerateResourcesObtainableJobs();
   };
 
   JobsList.prototype.getAvailableJobs = function (person) {
@@ -25,12 +26,12 @@ angular.module('towns').factory('JobsList', function () {
     return jobs;
   };
 
-  JobsList.prototype.clearDoneJobs = function (person) {
-    this.jobs.forEach(function (job) {
-      if(job.current_progress >= 1.0) {
-        job.finishJob();
+  JobsList.prototype.clearDoneJobs = function () {
+    for (var i = this.jobs.length - 1; i >=0 ; i--) {
+      if(this.jobs[i].current_progress >= 1.0) {
+        this.jobs[i].finishJob();
       }
-    });
+    }
   };
 
   var jobs_list = new JobsList();
@@ -52,6 +53,6 @@ angular.module('towns').factory('JobsList', function () {
       jobs_list.clearDoneJobs();
     }
   };
-});
+}]);
 
 

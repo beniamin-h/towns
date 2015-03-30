@@ -9,6 +9,7 @@ angular.module('towns').factory('GatherVegetablesJob', ['Job', 'Resources', 'Loc
   var GatherVegetablesJob = function () {
     Job.apply(this, arguments);
     this.current_gathering_resource = null;
+    this._class = GatherVegetablesJob;
   };
 
   GatherVegetablesJob.prototype = Object.create(Job.prototype);
@@ -19,6 +20,7 @@ angular.module('towns').factory('GatherVegetablesJob', ['Job', 'Resources', 'Loc
   GatherVegetablesJob.prototype.obtainable_resources = {
     vegetables: 1.0
   };
+  GatherVegetablesJob.prototype.is_auto_created_job = true;
 
   GatherVegetablesJob.prototype.can_do = function (person) {
     var parent_result = Job.prototype.can_do.apply(this, arguments);

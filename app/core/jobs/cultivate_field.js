@@ -7,6 +7,7 @@ angular.module('towns').factory('CultivateFieldJob', ['Job', function (Job) {
 
   var CultivateFieldJob = function () {
     Job.apply(this, arguments);
+    this._class = CultivateFieldJob;
   };
 
   CultivateFieldJob.prototype = Object.create(Job.prototype);

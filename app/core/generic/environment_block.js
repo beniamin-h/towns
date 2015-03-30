@@ -16,7 +16,6 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList',
   EnvironmentBlock.prototype.code = '';
   EnvironmentBlock.prototype.gather_base_divisor = 1000;
   EnvironmentBlock.prototype.max_gather_amount = 10;
-  EnvironmentBlock.prototype.gather_jobs_count = 50;
 
   EnvironmentBlock.prototype.getMaxResourcesAmountsFromGathering = function (person) {
     var gathered_amounts = {},
@@ -96,10 +95,8 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList',
 
   EnvironmentBlock.prototype.setExplored = function () {
     this.explored = true;
-    for (var i = 0; i < this.gather_jobs_count; i++) {
-      JobsList.addJob(new GatherFruitsJob(this, null));
-      JobsList.addJob(new GatherVegetablesJob(this, null));
-    }
+    JobsList.addJob(new GatherFruitsJob(this, null));
+    JobsList.addJob(new GatherVegetablesJob(this, null));
   };
 
   EnvironmentBlock.prototype.operate = function () {

@@ -1,11 +1,11 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('Resources', ['Math', 'Environment', 'JobsList', function (Math, Environment, JobsList) {
+angular.module('towns').factory('Resources', ['Math', 'Environment', function (Math, Environment) {
 
-  var Resources = function () {
+  var Resources = function (jobsList) {
     this._setupResourcesGroupsReversedMapping();
-    this.regenerateResourcesObtainableJobs();
+    this.jobsList = jobsList;
   };
 
   Resources.prototype.resources_groups_mapping = {
@@ -398,7 +398,7 @@ angular.module('towns').factory('Resources', ['Math', 'Environment', 'JobsList',
       dict[res_name] = [];
       return dict;
     }, {});
-    JobsList.getAllJobs().forEach(function (job) {
+      this.jobsList.getAllJobs().forEach(function (job) {
       for (var res_name in job.obtainable_resources) {
         that.resources_obtainable_jobs[res_name].push(job);
       }
@@ -447,9 +447,12 @@ angular.module('towns').factory('Resources', ['Math', 'Environment', 'JobsList',
     return most_need_satisfaction.job;
   };
 
-  var resources = new Resources();
+  var resources;
 
   return {
+    setupInstance: function (jobsList) {
+      resources = new Resources(jobsList);
+    },
     getResourcesInfo: function () {
       return resources.resources;
     },

@@ -7,6 +7,7 @@ angular.module('towns').factory('BuildJob', ['Job', function (Job) {
 
   var BuildJob = function (workplace, giver) {
     Job.apply(this, arguments);
+    this._class = BuildJob;
   };
 
   BuildJob.prototype = Object.create(Job.prototype);

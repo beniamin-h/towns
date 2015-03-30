@@ -8,6 +8,7 @@ angular.module('towns').factory('initProvider', ['populationProvider', 'building
 
   return {
     initGenericProviders: function () {
+      Resources.setupInstance(JobsList);
       mapProvider.initMap();
       environmentProvider.initEnvironment();
       buildingsProvider.initBuildingsProvider();
