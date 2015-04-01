@@ -7,7 +7,7 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList',
 
   var EnvironmentBlock = function (map_index, is_player_town_env_block) {
     this.map_index = map_index;
-    this.resources = Environment.getEnvResourcesInitialAmounts();
+    this.resources = Environment.getEnvResourcesInitialAmounts(is_player_town_env_block);
     if (is_player_town_env_block) {
       this.code = 'town';
       this.setExplored();

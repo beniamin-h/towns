@@ -1853,28 +1853,28 @@ describe('Environment', function () {
         describe('if it has any occurrence_requirements and occurrence_impact and' +
         '_checkResourceOccurrenceRequirements returns true', function () {
 
-          var polish_resource_amount_return_value = jasmine.createSpy('polish_resource_amount_return_value'),
-            setup_test = function () {
-              env._checkResourceOccurrenceRequirements =
-                jasmine.createSpy('_checkResourceOccurrenceRequirementsMockedFun').andReturn(true);
-              env._polishResourceAmount =
-                jasmine.createSpy('_polishResourceAmountMockedFun').andReturn(polish_resource_amount_return_value);
-              for (var res_name in env.resources) {
-                env.resources[res_name].occurrence_requirements = {};
-                env.resources[res_name].occurrence_impact = {};
-              }
-            };
+          var polish_resource_amount_return_value;
+
+          beforeEach(function () {
+            polish_resource_amount_return_value = jasmine.createSpy('polish_resource_amount_return_value');
+            env._checkResourceOccurrenceRequirements =
+              jasmine.createSpy('_checkResourceOccurrenceRequirementsMockedFun').andReturn(true);
+            env._polishResourceAmount =
+              jasmine.createSpy('_polishResourceAmountMockedFun').andReturn(polish_resource_amount_return_value);
+            for (var res_name in env.resources) {
+              env.resources[res_name].occurrence_requirements = {};
+              env.resources[res_name].occurrence_impact = {};
+            }
+          });
 
           it('_polishResourceAmount is called as many times as number of resources', function () {
-            setup_test();
             var amounts = env.getEnvResourcesInitialAmounts();
             expect(env._polishResourceAmount.callCount).toBe(Object.keys(env.resources).length);
           });
 
           it('returns value returned from _polishResourceAmount', function () {
-            setup_test();
             var amounts = env.getEnvResourcesInitialAmounts();
-            for (res_name in amounts) {
+            for (var res_name in amounts) {
               expect(amounts[res_name]).toBe(polish_resource_amount_return_value);
             }
           });
@@ -1883,6 +1883,25 @@ describe('Environment', function () {
         describe('if it has any occurrence_requirements and occurrence_impact and' +
         '_checkResourceOccurrenceRequirements returns true', function () {
 
+        });
+
+        describe('if it has not any occurrence_requirements nor occurrence_impact and' +
+        'is player town env block', function () {
+
+          beforeEach(function () {
+            for (var res_name in env.resources) {
+              delete env.resources[res_name].occurrence_requirements;
+              delete env.resources[res_name].occurrence_impact;
+            }
+          });
+
+          it('returns value between 85% and 100% of max resource amount', function () {
+            var amounts = env.getEnvResourcesInitialAmounts(true);
+            for (var res_name in amounts) {
+              expect(amounts[res_name]).toBeGreaterThan(env.resources[res_name].max_amount * 0.85);
+              expect(amounts[res_name]).toBeLessThan(env.resources[res_name].max_amount);
+            }
+          });
         });
       });
 

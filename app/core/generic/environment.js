@@ -477,7 +477,7 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
     return amount;
   };
 
-  Environment.prototype.getEnvResourcesInitialAmounts = function () {
+  Environment.prototype.getEnvResourcesInitialAmounts = function (is_player_town_env_block) {
     var amounts = {},
       that = this;
 
@@ -489,6 +489,8 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
       } else if (res_info.occurrence_impact) {
         amounts[res_name] = that._polishResourceAmount(
           res_info, res_info.max_amount * that._getResourceOccurrenceImpact(res_info, amounts));
+      } else if (is_player_town_env_block) {
+        amounts[res_name] = res_info.max_amount * (0.85 + 0.15 * Math.random());
       } else {
         amounts[res_name] = res_info.max_amount * Math.random();
       }
