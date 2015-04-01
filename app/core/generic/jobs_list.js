@@ -14,7 +14,7 @@ angular.module('towns').factory('JobsList', ['Resources', function (Resources) {
 
   JobsList.prototype.addJob = function (job) {
     this.jobs.push(job);
-    Resources.regenerateResourcesObtainableJobs();
+    Resources.regenerateResourcesObtainableJobs(); // TODO: not here !!
   };
 
   JobsList.prototype.getAvailableJobs = function (person) {
@@ -32,6 +32,7 @@ angular.module('towns').factory('JobsList', ['Resources', function (Resources) {
         this.jobs[i].finishJob();
       }
     }
+    Resources.regenerateResourcesObtainableJobs();
   };
 
   var jobs_list = new JobsList();
@@ -51,6 +52,9 @@ angular.module('towns').factory('JobsList', ['Resources', function (Resources) {
     },
     clearDoneJobs: function () {
       jobs_list.clearDoneJobs();
+    },
+    getInstance: function () {
+      return jobs_list;
     }
   };
 }]);
