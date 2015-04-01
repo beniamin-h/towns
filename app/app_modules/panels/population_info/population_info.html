@@ -1,3 +1,12 @@
 <div class="population_info">
-    <div class="count">Total population: {{ population.getCount() }}</div>
+    <div ng-show="!selected_person" class="count">Total population: {{ population.getCount() }}</div>
+
+    <div ng-show="selected_person">
+        <div>Name: {{ selected_person.name }}</div>
+        <div>Resources:
+            <div ng-repeat="(res_name, res_amount) in selected_person.resources" ng-show="res_amount">
+                {{ res_name }}: {{ res_amount }}
+            </div>
+        </div>
+    </div>
 </div>

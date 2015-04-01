@@ -45,6 +45,14 @@
   border-bottom-color: #ddd;
 }
 
+.population-list-row.selected {
+  background-color: #eee;
+}
+
+.population-list-row.selected, .population-list-row.selected + .population-list-row {
+  border-color: #bbb;
+}
+
 .population-list-cell {
   margin-top: 12px;
   float: left;
@@ -65,6 +73,4 @@
   width: 200px;
   text-align: right;
 }
-
-
 

@@ -12,7 +12,7 @@ angular.module('towns').factory('populationProvider', ['Person', 'Math', 'Popula
 
   this.processTick = function () {
     for (var i = this.people.length - 1; i >= 0; i--) {
-      this.people[i].live()
+      this.people[i].live();
     }
     this.immigrate();
   };

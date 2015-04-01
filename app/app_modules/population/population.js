@@ -6,10 +6,12 @@ angular.module('towns.population', ['ui.bootstrap'])
     function($scope, $rootScope, populationProvider, Formatters) {
 
 
+
   // ------------------- INIT -------------------
 
   $scope._populationInit = function() {
     $scope.people = populationProvider.getAll();
+    $scope.selected_person = null;
   };
 
   // ------------------- LISTENERS -------------------
@@ -21,6 +23,7 @@ angular.module('towns.population', ['ui.bootstrap'])
   // ------------------- SCOPE METHODS -------------------
 
   $scope.populationListItemClicked = function (person) {
+    $scope.selected_person = person;
     $rootScope.$broadcast('populationListItemClicked', person);
   };
 

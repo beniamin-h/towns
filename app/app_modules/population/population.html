@@ -13,7 +13,8 @@
     </div>
     <div class="population-list-rows">
         <div class="population-list-row" ng-repeat="person in people"
-             ng-click="populationListItemClicked(person)">
+             ng-click="populationListItemClicked(person)"
+             ng-class="{'selected': person == selected_person}">
             <div class="population-list-cell person-name">{{ person.name }}</div>
             <div class="population-list-cell int">{{ person.age }}</div>
             <div class="population-list-cell int">{{ floatToPercents(person.happiness) }}</div>

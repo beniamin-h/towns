@@ -5,15 +5,19 @@
 describe('buildingsProvider', function(){
   beforeEach(module('towns'));
 
-  var buildingsProvider, ImmigrantsCampBuilding, Building, mapProvider;
+  var buildingsProvider, ImmigrantsCampBuilding, Building, mapProvider, Resources, JobsList;
 
-  beforeEach(inject(function(_buildingsProvider_, _ImmigrantsCampBuilding_, _Building_, _mapProvider_){
+  beforeEach(inject(function(_buildingsProvider_, _ImmigrantsCampBuilding_, _Building_, _mapProvider_,
+                             _Resources_, _JobsList_) {
     buildingsProvider = _buildingsProvider_;
     buildingsProvider.initBuildingsProvider();
     ImmigrantsCampBuilding = _ImmigrantsCampBuilding_;
     Building = _Building_;
     mapProvider = _mapProvider_;
     mapProvider.initMap();
+    JobsList = _JobsList_;
+    Resources = _Resources_;
+    Resources.setupInstance(JobsList);
   }));
 
   describe('build', function(){

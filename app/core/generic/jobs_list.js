@@ -27,7 +27,7 @@ angular.module('towns').factory('JobsList', ['Resources', function (Resources) {
   };
 
   JobsList.prototype.clearDoneJobs = function () {
-    for (var i = this.jobs.length - 1; i >=0 ; i--) {
+    for (var i = this.jobs.length - 1; i >= 0; i--) {
       if(this.jobs[i].current_progress >= 1.0) {
         this.jobs[i].finishJob();
       }

@@ -5,12 +5,14 @@
 describe('EnvironmentBlock', function () {
   beforeEach(module('towns'));
 
-  var EnvironmentBlock, Environment, Resources, it_counter = 0;
+  var EnvironmentBlock, Environment, Resources, JobsList, it_counter = 0;
 
-  beforeEach(inject(function (_EnvironmentBlock_, _Environment_, _Resources_) {
+  beforeEach(inject(function (_EnvironmentBlock_, _Environment_, _JobsList_, _Resources_) {
     EnvironmentBlock = _EnvironmentBlock_;
     Environment = _Environment_;
+    JobsList = _JobsList_;
     Resources = _Resources_;
+    Resources.setupInstance(JobsList);
   }));
 
   describe('getMaxResourcesAmountsFromGathering', function () {
