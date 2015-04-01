@@ -302,7 +302,9 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
         if (resources_obtainable_job.worker) {
           resources_obtainable_job.worker.job = null;
         }
-        this.changeJob(resources_obtainable_job);
+        if (resources_obtainable_job != this.job) {
+          this.changeJob(resources_obtainable_job);
+        }
       }
     }
   };
