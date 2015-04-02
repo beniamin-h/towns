@@ -2,8 +2,7 @@
  * Created by benek on 12/25/14.
  */
 angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 'Math', 'LocalMarket', 'Resources',
-  'governmentStorage',
-    function (PopulationConfig, PersonDecider, Math, LocalMarket, Resources, governmentStorage) {
+    function (PopulationConfig, PersonDecider, Math, LocalMarket, Resources) {
 
   var names = {
     'male':[
@@ -138,13 +137,6 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     }
     this.initResources();
     this.buildings = [];
-    this.temporary_resources_needs = {};
-    this.safe_resources_amounts = {
-      food: {min: 10, max: 25},
-      fruits: {min: 3, max: 6},
-      vegetables: {min: 3, max: 6},
-      clothing: {min: 2, max: 3}
-    };
   };
 
   Person.prototype.initResources = function ( ) {
@@ -162,10 +154,10 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     this.consumeDailyResources();
     this.recalculatePersonalNeeds();
     this.sellNeedlessResourcesToLocalMarket();
-    this.tryToSatisfyNeeds();
-    //if (this.findJob()) {
+    PersonDecider.tryToSatisfyNeeds(this);
+    if (this.findMostPayableJob()) {
       this.work();
-    //}
+    }
   };
 
   Person.prototype.consumeDailyResources = function () {
@@ -223,7 +215,7 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
       }
     }
 
-    this.needs.food = (this.needs.food + consumed_food) / 2; // TODO: customize factor
+    this.needs.food = (this.needs.food + consumed_food) / 2;
     this.needs.food = Math.min(1, this.needs.food);
   };
 
@@ -249,9 +241,9 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
 
   };
 
-  Person.prototype.findJob = function () {
+  Person.prototype.findMostPayableJob = function () {
     if (!this.job) {
-      return PersonDecider.findJob(this);
+      return PersonDecider.findMostPayableJob(this);
     } else {
       return true;
     }
@@ -275,60 +267,6 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     this.job = newJob;
   };
 
-  Person.prototype.tryToSatisfyNeeds = function () {
-    var needs = this.getNeededResources(),
-      that = this;
-
-    if (governmentStorage.inhabitantsCanTakeResources()) {
-      needs.forEach(function (needed_resource) {
-        needed_resource.amount -= that.takeFromGovernmentStorage(needed_resource.res_name, needed_resource.amount);
-      });
-    }
-    needs.forEach(function (needed_resource) {
-      if (needed_resource.amount > 0) {
-        needed_resource.amount -= that.buyOnLocalMarket(needed_resource.res_name, needed_resource.amount);
-      }
-    });
-
-    if (this.job) {
-      return;
-    }
-
-    needs = needs.filter(function (res) { return res.amount > 0; });
-
-    if (needs.length > 0) {
-      var resources_obtainable_job = Resources.getBestResourceObtainableJobForPerson(this, needs);
-      if (resources_obtainable_job) {
-        if (resources_obtainable_job.worker) {
-          resources_obtainable_job.worker.job = null;
-        }
-        if (resources_obtainable_job != this.job) {
-          this.changeJob(resources_obtainable_job);
-        }
-      }
-    }
-  };
-
-  Person.prototype.getNeededResources = function () {
-    var that = this,
-      needs = [],
-      res_groups_map = Resources.getResourcesGroupsMapping();
-    for (var res_name in this.safe_resources_amounts) {
-      var total_res_amount = (res_groups_map[res_name] ? Object.keys(res_groups_map[res_name]).reduce(
-        function (total_amount, res_name) {
-          total_amount += that.resources[res_name];
-          return total_amount;
-      }, 0) : this.resources[res_name]);
-      if (total_res_amount < this.safe_resources_amounts[res_name].min) {
-        needs.push({
-          res_name: res_name,
-          amount: this.safe_resources_amounts[res_name].max - total_res_amount
-        });
-      }
-    }
-    return needs.sort(function (a, b) { return a.amount > b.amount ? -1 : 1; });
-  };
-
   Person.prototype.sellNeedlessResourcesToLocalMarket = function () {
 
   };
@@ -342,68 +280,6 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     //return amount_bought;
     return 0;
   };
-
-  /*
-  Person.prototype.eat = function () {
-    if (this.resources.food > _config.base_daily_food_consumption) {
-      this.needs.food += _config.base_daily_food_regeneration;
-      this.resources.food -= _config.base_daily_food_consumption;
-    } else if (this.resources.food > 0) {
-      this.needs.food += _config.base_daily_food_regeneration * this.resources.food;
-      this.resources.food = 0;
-    } else {
-      this.needs.food -= this.needs.food > _config.base_daily_food_need ?
-        _config.base_daily_food_need : this.needs.food;
-    }
-    this.needs.food = Math.max(0, this.needs.food);
-    this.needs.food = Math.min(1, this.needs.food);
-  };
-
-  Person.prototype.wear = function () {
-    if (this.resources.cloths > 0) {
-      this.needs.cloths += _config.base_daily_cloths_regeneration ?
-        this.resources.cloths > _config.base_daily_cloths_consumption :
-          this.resources.cloths * (_config.base_daily_cloths_regeneration / _config.base_daily_cloths_consumption);
-      this.resources.cloths -= _config.base_daily_cloths_consumption ?
-        this.resources.cloths > _config.base_daily_cloths_consumption : this.resources.cloths;
-    } else {
-      this.needs.cloths -= this.needs.cloths > _config.base_daily_cloths_need ?
-        _config.base_daily_cloths_need : this.needs.cloths;
-    }
-  };
-
-  Person.prototype.getMostFulfillAbleTemporaryNeededResource = function (res_amounts) {
-    var most_needed = null,
-      most_needed_fulfillment = 0,
-      available_resources = Object.keys(res_amounts);
-    for (var res_name in this.temporary_resources_needs) {
-      if (available_resources.indexOf(res_name) != -1 &&
-          this.temporary_resources_needs[res_name].priority > most_needed_fulfillment) {
-        most_needed_fulfillment = this.temporary_resources_needs[res_name].priority *
-          Math.min(1.0, res_amounts[res_name] / this.temporary_resources_needs[res_name].amount);
-        most_needed = res_name;
-      }
-    }
-    return most_needed;
-  };
-  */
-
-  /*
-  Person.prototype.getSortedByPriorityAndGivenResAmountTemporaryNeededResourcesNames = function (res_amounts) {
-    var that = this;
-    return Object.keys(this.temporary_resources_needs).sort(function (res_name_a, res_name_b) {
-      var priority_a = that.temporary_resources_needs[res_name_a].priority * (res_amounts[res_name_a] || 0),
-        priority_b = that.temporary_resources_needs[res_name_b].priority * (res_amounts[res_name_b] || 0);
-      if (priority_a > priority_b) {
-        return -1;
-      } else if (priority_a < priority_b) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-  };
-  */
 
   return Person;
 }]);

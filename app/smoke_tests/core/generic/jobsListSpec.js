@@ -5,13 +5,14 @@
 describe('JobsList', function(){
   beforeEach(module('towns'));
 
-  var Person, PopulationConfig, initProvider, populationProvider, buildingsProvider,
+  var Person, PersonDecider, PopulationConfig, initProvider, populationProvider, buildingsProvider,
     GatherFruitsJob, GatherVegetablesJob, environmentProvider, EnvironmentBlock, Resources, JobsList;
 
-  beforeEach(inject(function (_Person_, _PopulationConfig_, _initProvider_, _populationProvider_,
+  beforeEach(inject(function (_Person_, _PersonDecider_, _PopulationConfig_, _initProvider_, _populationProvider_,
                               _buildingsProvider_, _GatherFruitsJob_, _GatherVegetablesJob_,
                               _environmentProvider_, _EnvironmentBlock_, _Resources_, _JobsList_) {
     Person = _Person_;
+    PersonDecider = _PersonDecider_;
     PopulationConfig = _PopulationConfig_;
     initProvider = _initProvider_;
     populationProvider = _populationProvider_;
@@ -162,7 +163,7 @@ describe('JobsList', function(){
             people[p].consumeDailyResources();
             people[p].recalculatePersonalNeeds();
             people[p].sellNeedlessResourcesToLocalMarket();
-            people[p].tryToSatisfyNeeds();
+            PersonDecider.tryToSatisfyNeeds(people[p]);
             expect(people[p].job.current_progress).toBe(0.0);
             expect(JobsList.getAllJobs().indexOf(people[p].job)).toBeGreaterThan(-1);
             people[p].work();
