@@ -508,8 +508,8 @@ angular.module('towns').factory('Environment', ['Math', function (Math) {
     getEnvResourceInfo: function (res_name) {
       return environment.resources[res_name];
     },
-    getEnvResourcesInitialAmounts: function () {
-      return environment.getEnvResourcesInitialAmounts();
+    getEnvResourcesInitialAmounts: function (is_player_town_env_block) {
+      return environment.getEnvResourcesInitialAmounts(is_player_town_env_block);
     },
     getEnvResourceGrowth: function (resource_type, resource_amount) {
 
