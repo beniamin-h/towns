@@ -34,8 +34,7 @@ angular.module('towns').factory('Building', ['BuildJob', 'JobsList', function (B
   };
 
   Building.prototype.finish_constructing = function () {
-    this.constructing_progress = 1.0;
-    this.removeAvailableJobsByClass(BuildJob);
+
   };
 
   Building.prototype.addNewCurrentlyAvailableJobsByClass = function (_class, count) {
@@ -43,22 +42,6 @@ angular.module('towns').factory('Building', ['BuildJob', 'JobsList', function (B
       newJob = new _class(this, this.owner);
       this.currently_available_jobs.push(newJob);
       JobsList.addJob(newJob);
-    }
-  };
-
-  Building.prototype.removeAvailableJobsByClass = function (_class) {
-    for (var i = this.currently_available_jobs.length - 1; i >= 0; i--) {
-      if (this.currently_available_jobs[i] instanceof _class) {
-        JobsList.removeJob(this.currently_available_jobs.splice(i, 1)[0]);
-      }
-    }
-  };
-
-  Building.prototype.deactivateCurrentlyAvailableJobsByClass = function (_class) {
-    for (var i = this.currently_available_jobs.length - 1; i >= 0; i--) {
-      if (this.currently_available_jobs[i] instanceof _class) {
-        JobsList.removeJob(this.currently_available_jobs.splice(i, 1)[0]);
-      }
     }
   };
 

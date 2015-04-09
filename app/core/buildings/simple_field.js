@@ -45,16 +45,11 @@ angular.module('towns').factory('SimpleFieldBuilding', ['Building', 'CultivateFi
     this.addCurrentlyAvailableJobsByClass(CultivateFieldJob);
   };
 
-  SimpleFieldBuilding.prototype.finish_cultivating = function () {
-    this.deactivateCurrentlyAvailableJobsByClass(CultivateFieldJob);
-  };
-
   SimpleFieldBuilding.prototype.finish_harvesting = function () {
     this.growing_progress = 0.0;
     this.cultivating_progress = 0.0;
     this.harvesting_progress = 0.0;
     this.can_start_harvesing = false;
-    this.deactivateCurrentlyAvailableJobsByClass(HarvestFieldJob);
     this.addCurrentlyAvailableJobsByClass(CultivateFieldJob);
   };
 

@@ -15,6 +15,7 @@ angular.module('towns').factory('CultivateFieldJob', ['Job', function (Job) {
 
   CultivateFieldJob.prototype.name = 'Cultivating a field';
   CultivateFieldJob.prototype.base_progress_increase = 0.25;
+  CultivateFieldJob.prototype.salary = 1;
 
   CultivateFieldJob.prototype.can_do = function (person) {
     var parent_result = Job.prototype.can_do.apply(this, arguments);
@@ -26,10 +27,8 @@ angular.module('towns').factory('CultivateFieldJob', ['Job', function (Job) {
     Job.prototype.do.apply(this, arguments);
 
     this.workplace.cultivating_progress += this.base_progress_increase;
+    this.workplace.cultivating_progress = Math.min(this.workplace.cultivating_progress, 1.0);
     this.current_progress = this.workplace.cultivating_progress;
-    if (this.workplace.cultivating_progress >= 1.0) {
-      this.workplace.finish_cultivating();
-    }
   };
 
   return CultivateFieldJob;

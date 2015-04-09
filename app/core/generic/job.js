@@ -20,10 +20,11 @@ angular.module('towns').factory('Job', ['JobsList', 'IdGenerator', function (Job
   Job.prototype.required_skills = {};
   Job.prototype.obtainable_resources = [];
   Job.prototype.is_auto_created_job = false;
+  Job.prototype.salary = 0;
   Job.prototype.job_id = 0;
 
   Job.prototype.can_do = function (person) {
-    return this.giver == person || !this.giver;
+    return true;
   };
 
   Job.prototype.setWorker = function (worker) {
@@ -36,9 +37,7 @@ angular.module('towns').factory('Job', ['JobsList', 'IdGenerator', function (Job
   Job.prototype.finishJob = function () {
     this.current_progress = 0;
     this.worker.changeJob(null);
-    if (this.is_auto_created_job) {
-      JobsList.removeJob(this);
-    }
+    JobsList.removeJob(this);
   };
 
   Job.prototype['do'] = function (person) {

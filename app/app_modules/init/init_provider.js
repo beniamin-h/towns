@@ -30,8 +30,8 @@ angular.module('towns').factory('initProvider', ['populationProvider', 'building
     },
     processTicks: function () {
       JobsList.clearDoneJobs();
-      populationProvider.processTick();
       buildingsProvider.processTick();
+      populationProvider.processTick();
       Resources.regenerateResourcesObtainableJobs(); //TODO: should be here ?
     },
     _instance: this

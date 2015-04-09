@@ -16,7 +16,7 @@ angular.module('towns').factory('PersonDecider', ['LocalMarket', 'JobsList', 'Ma
   };
 
   PersonDecider.prototype.findMostPayableJob = function (person) {
-    var jobs = JobsList.getAvailableJobs(person);
+    var jobs = JobsList.getAvailablePayableJobs(person);
     if (jobs.length) {
       person.changeJob(jobs[0]);
       return true;
@@ -40,7 +40,7 @@ angular.module('towns').factory('PersonDecider', ['LocalMarket', 'JobsList', 'Ma
     });
 
     if (person.job && person.job.current_progress < 1.0) {
-      return;
+      //return;
     }
 
     needs = needs.filter(function (res) { return res.amount > 0; });
