@@ -30,7 +30,7 @@ angular.module('towns').factory('Job', ['JobsList', 'IdGenerator', function (Job
   Job.prototype.setWorker = function (worker) {
     this.worker = worker;
     if (worker && this.is_auto_created_job) {
-      JobsList.addJob(new (this._class)(this.workplace, null));
+      JobsList.addJob(new (this._class)(this.workplace, this.giver));
     }
   };
 

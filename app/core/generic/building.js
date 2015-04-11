@@ -30,29 +30,11 @@ angular.module('towns').factory('Building', ['BuildJob', 'JobsList', function (B
   Building.prototype.construction_materials = {};
 
   Building.prototype.start_constructing = function () {
-    this.addNewCurrentlyAvailableJobsByClass(BuildJob, this.size);
+    JobsList.addJob(new BuildJob(this, this.owner));
   };
 
   Building.prototype.finish_constructing = function () {
 
-  };
-
-  Building.prototype.addNewCurrentlyAvailableJobsByClass = function (_class, count) {
-    for (var i = 0, newJob; i < count; i++) {
-      newJob = new _class(this, this.owner);
-      this.currently_available_jobs.push(newJob);
-      JobsList.addJob(newJob);
-    }
-  };
-
-  Building.prototype.addCurrentlyAvailableJobsByClass = function (_class) {
-    for (var newJob, j = this.available_jobs.length - 1; j >= 0; j--) {
-      if (this.available_jobs[j] instanceof _class) {
-        newJob = this.available_jobs[j];
-        this.currently_available_jobs.push(newJob);
-        JobsList.addJob(newJob);
-      }
-    }
   };
 
   Building.prototype.add_inhabitant = function (inhabitant) {

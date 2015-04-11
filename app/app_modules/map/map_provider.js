@@ -72,10 +72,10 @@ angular.module('towns').factory('mapProvider', ['_map_config', 'Math', 'ArrayUti
         for (var i = y, blocks_within_rect = []; i < height + y; i++) {
           blocks_within_rect.push.apply(blocks_within_rect, ArrayUtils.range(width, x + i * _map_config.map_dim.x));
         }
-        randomized_blocks = ArrayUtils.shuffle(blocks_within_rect);
+        ArrayUtils.shuffleInplace(blocks_within_rect);
         while (++n < blocks_count) {
-          if (that.blocks[randomized_blocks[n]].building === null) {
-            return randomized_blocks[n];
+          if (that.blocks[blocks_within_rect[n]].building === null) {
+            return blocks_within_rect[n];
           }
         }
 

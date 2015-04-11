@@ -3,8 +3,8 @@
  */
 
 
-angular.module('towns').factory('SimpleFieldBuilding', ['Building', 'CultivateFieldJob', 'HarvestFieldJob',
-    function (Building, CultivateFieldJob, HarvestFieldJob) {
+angular.module('towns').factory('SimpleFieldBuilding', ['Building', 'CultivateFieldJob', 'HarvestFieldJob', 'JobsList',
+    function (Building, CultivateFieldJob, HarvestFieldJob, JobsList) {
 
   var SimpleFieldBuilding = function (map_index, owner) {
     Building.apply(this, arguments);
@@ -36,13 +36,14 @@ angular.module('towns').factory('SimpleFieldBuilding', ['Building', 'CultivateFi
     if (this.growing_progress >= 1.0 && !this.can_start_harvesing) {
       this.growing_progress = 1.0;
       this.can_start_harvesing = true;
-      this.addCurrentlyAvailableJobsByClass(HarvestFieldJob);
+      var newJob = new HarvestFieldJob(this, this.owner);
+      JobsList.addJob(newJob);
     }
   };
 
   SimpleFieldBuilding.prototype.finish_constructing = function () {
     Building.prototype.finish_constructing.apply(this, arguments);
-    this.addCurrentlyAvailableJobsByClass(CultivateFieldJob);
+    JobsList.addJob(new CultivateFieldJob(this, this.owner));
   };
 
   SimpleFieldBuilding.prototype.finish_harvesting = function () {
@@ -50,7 +51,7 @@ angular.module('towns').factory('SimpleFieldBuilding', ['Building', 'CultivateFi
     this.cultivating_progress = 0.0;
     this.harvesting_progress = 0.0;
     this.can_start_harvesing = false;
-    this.addCurrentlyAvailableJobsByClass(CultivateFieldJob);
+    JobsList.addJob(new CultivateFieldJob(this, this.owner));
   };
 
   return SimpleFieldBuilding;

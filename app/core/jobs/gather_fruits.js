@@ -8,7 +8,6 @@ angular.module('towns').factory('GatherFruitsJob', ['Job', 'Resources', 'LocalMa
 
   var GatherFruitsJob = function () {
     Job.apply(this, arguments);
-    this.current_gathering_resource = null;
     this._class = GatherFruitsJob;
   };
 
@@ -30,15 +29,11 @@ angular.module('towns').factory('GatherFruitsJob', ['Job', 'Resources', 'LocalMa
   GatherFruitsJob.prototype['do'] = function (person) {
     Job.prototype.do.apply(this, arguments);
 
-    if (this.current_progress == 0) {
-      this.current_gathering_resource = 'fruits';
-    }
-
     this.current_progress += this.base_progress_increase;
 
     if (this.current_progress >= 1.0) {
       var gathered_resources = person.current_env_block.gatherResources(
-        person, this.current_gathering_resource);
+        person, 'fruits');
 
       for (var res_name in gathered_resources) {
         person.resources[res_name] = person.resources[res_name] || 0; // TODO: defaulting to 0 not here !!

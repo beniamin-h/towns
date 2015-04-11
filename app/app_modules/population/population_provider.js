@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('towns').factory('populationProvider', ['Person', 'Math', 'PopulationConfig', 'environmentProvider',
-    function (Person, Math, PopulationConfig, environmentProvider) {
+    'ArrayUtils',
+    function (Person, Math, PopulationConfig, environmentProvider, ArrayUtils) {
   var that = this;
 
   this.config = {
@@ -11,8 +12,9 @@ angular.module('towns').factory('populationProvider', ['Person', 'Math', 'Popula
   this.people = [];
 
   this.processTick = function () {
-    for (var i = this.people.length - 1; i >= 0; i--) {
-      this.people[i].live();
+    var people = ArrayUtils.shuffle(this.people);
+    for (var i = people.length - 1; i >= 0; i--) {
+      people[i].live();
     }
     this.immigrate();
   };

@@ -20,6 +20,7 @@ angular.module('towns').factory('EnvironmentBlock', ['Environment', 'JobsList',
   EnvironmentBlock.prototype.code = '';
   EnvironmentBlock.prototype.gather_base_divisor = 1000;
   EnvironmentBlock.prototype.max_gather_amount = 10;
+  EnvironmentBlock.prototype.currently_available_jobs = [];
 
   EnvironmentBlock.prototype.getMaxResourcesAmountsFromGathering = function (person) {
     var gathered_amounts = {},
