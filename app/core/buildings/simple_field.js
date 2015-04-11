@@ -9,7 +9,6 @@ angular.module('towns').factory('SimpleFieldBuilding', ['Building', 'CultivateFi
   var SimpleFieldBuilding = function (map_index, owner) {
     Building.apply(this, arguments);
 
-    this.available_jobs.push(new CultivateFieldJob(this, owner), new HarvestFieldJob(this, owner));
     this.cultivating_progress = 0;
     this.growing_progress = 0;
     this.harvesting_progress = 0;

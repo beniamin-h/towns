@@ -7,7 +7,6 @@ angular.module('towns').factory('Building', ['BuildJob', 'JobsList', function (B
     this.owner = owner;
     this.map_index = map_index;
     this.inhabitants = [];
-    this.available_jobs = [];
     this.currently_available_jobs = [];
     if (constructed) {
       this.constructing_progress = 1.0;
