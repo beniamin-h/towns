@@ -1,0 +1,30 @@
+<div ng-init="_initStoreHousePanel()">
+    <div>
+        Resources:
+        <div ng-repeat="(res_name, res_amount) in resources" ng-show="res_amount">{{ res_name }}: {{ res_amount }}</div>
+    </div>
+    <hr />
+    <div>
+        <div ng-show="!gathering.selected_resource">
+            Gather selected_resources:
+            <ul>
+                <li ng-click="onGatherResourceSelected('fruits')" class="button">Fruits</li>
+                <li ng-click="onGatherResourceSelected('vegetables')" class="button">Vegetables</li>
+            </ul>
+        </div>
+        <div ng-show="gathering.selected_resource" class="gather_resource_form">
+            <div>Gather {{ gathering.selected_resource }}</div>
+            Max number of collectors:
+            <input type="number" min="1" ng-pattern="/[0-9]+/"
+                   ng-model="gathering.selected_resource_requested.max_collectors_number" /><br />
+            Max resource amount:
+            <input type="number" min="1" ng-pattern="/[0-9]+([\.][0-9]+)?/"
+                   ng-model="gathering.selected_resource_requested.max_gather_resource_amount" />
+            <div>
+                <div ng-click="onGatherOrdered()"
+                     class="button">Gather!</div>
+                <div ng-click="onCancelClicked()" class="button">Never mind</div>
+            </div>
+        </div>
+    </div>
+</div>

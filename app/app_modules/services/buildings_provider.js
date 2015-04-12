@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('towns').factory('buildingsProvider', [
-  'ImmigrantsCampBuilding', 'SimpleFieldBuilding', 'Math', 'mapProvider',
-    function (ImmigrantsCampBuilding, SimpleFieldBuilding, Math, mapProvider) {
+  'ImmigrantsCampBuilding', 'SimpleFieldBuilding', 'StoragePlaceBuilding', 'Math', 'mapProvider',
+    function (ImmigrantsCampBuilding, SimpleFieldBuilding, StoragePlaceBuilding, Math, mapProvider) {
   var that = this;
 
   this.initBuildingsProvider = function () {
@@ -12,7 +12,7 @@ angular.module('towns').factory('buildingsProvider', [
   };
 
   this._initBuildingsClasses = function () {
-    [ImmigrantsCampBuilding, SimpleFieldBuilding].forEach(function (building_class) {
+    [ImmigrantsCampBuilding, SimpleFieldBuilding, StoragePlaceBuilding].forEach(function (building_class) {
       that.buildingsClasses[building_class.prototype.code] = building_class;
     });
   };

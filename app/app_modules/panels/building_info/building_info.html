@@ -19,6 +19,11 @@
         {{ job.name }}: {{ job.worker.name }} {{ floatToPercents(job.current_progress) }}%
     </div>
     <div ng-if="getSelectedBuilding().type == 'farm'">
-        <div ng-include="'app_modules/panels/building_info/buildings/farm/farm_panel.html'" ng-controller="FarmPanel"></div>
+        <div ng-include="'app_modules/panels/building_info/buildings/farm/farm_panel.html'"
+             ng-controller="FarmPanel"></div>
+    </div>
+    <div ng-if="getSelectedBuilding().type == 'store_house'">
+        <div ng-include="'app_modules/panels/building_info/buildings/store_house/store_house.html'"
+             ng-controller="StoreHousePanel"></div>
     </div>
 </div>

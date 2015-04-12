@@ -3,6 +3,8 @@
         <div ng-click="changeActiveMenu('build')" class="button build">Build</div>
     </div>
     <div class="build_menu" ng-show="active_menu == 'build'">
+        <div ng-click="prev_menu = active_menu; onBuildClicked('StoragePlace');"
+             class="button storage_place">Storage place</div>
         <div ng-click="prev_menu = active_menu; onBuildClicked('SimpleField');"
              class="button simple_field">Simple field</div>
         <div ng-click="prev_menu = active_menu; onBuildClicked('ImmigrantsCamp');"
