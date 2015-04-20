@@ -17,7 +17,7 @@ angular.module('towns.building_info')
     for (var res_name in Resources.getResourcesInfo()) {
       $scope.gathering.requested[res_name] = {
         max_collectors_number: 1,
-        max_gather_resource_amount: 100
+        gather_resource_amount: 100
       };
     }
   };
@@ -34,7 +34,7 @@ angular.module('towns.building_info')
     selectedStoreHouse.setRequestedResourceAmount(
       $scope.gathering.selected_resource,
       $scope.gathering.selected_resource_requested.max_collectors_number,
-      $scope.gathering.selected_resource_requested.max_gather_resource_amount
+      $scope.gathering.selected_resource_requested.gather_resource_amount
     );
     $scope.gathering.selected_resource = null;
     $scope.gathering.selected_resource_requested = null;

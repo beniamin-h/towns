@@ -6,7 +6,7 @@
     <hr />
     <div>
         <div ng-show="!gathering.selected_resource">
-            Gather selected_resources:
+            Gather:
             <ul>
                 <li ng-click="onGatherResourceSelected('fruits')" class="button">Fruits</li>
                 <li ng-click="onGatherResourceSelected('vegetables')" class="button">Vegetables</li>
@@ -17,9 +17,9 @@
             Max number of collectors:
             <input type="number" min="1" ng-pattern="/[0-9]+/"
                    ng-model="gathering.selected_resource_requested.max_collectors_number" /><br />
-            Max resource amount:
+            Min resource amount:
             <input type="number" min="1" ng-pattern="/[0-9]+([\.][0-9]+)?/"
-                   ng-model="gathering.selected_resource_requested.max_gather_resource_amount" />
+                   ng-model="gathering.selected_resource_requested.gather_resource_amount" />
             <div>
                 <div ng-click="onGatherOrdered()"
                      class="button">Gather!</div>
