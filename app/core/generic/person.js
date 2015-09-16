@@ -1,95 +1,9 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 'Math', 'LocalMarket', 'Resources',
-    function (PopulationConfig, PersonDecider, Math, LocalMarket, Resources) {
-
-  var names = {
-    'male':[
-      'Ulrich',
-      'Adam',
-      'Aksel',
-      'Albert',
-      'Albin',
-      'Alf',
-      'Alfred',
-      'Alvar',
-      'Anders',
-      'Anton',
-      'Ari',
-      'Aron',
-      'Arthur',
-      'August',
-      'Bent',
-      'Bernt',
-      'Bosse',
-      'Carl',
-      'Casper',
-      'Cristen',
-      'Claus',
-      'Daniel',
-      'David',
-      'Edvin',
-      'Einer',
-      'Elis',
-      'Elof',
-      'Emil',
-      'Eric',
-      'Erling',
-      'Espen',
-      'Fannar',
-      'Filip',
-      'Flemming',
-      'Frans',
-      'Frederik',
-      'Frej',
-      'Frode',
-      'Gabriel',
-      'Georg',
-      'Gerd',
-      'Gerhard',
-      'Gotdfred'
-    ],
-    'female': [
-      'Agathe',
-      'Agnes',
-      'Alexandra',
-      'Alva',
-      'Amanda',
-      'Ane',
-      'Anja',
-      'Annika',
-      'Astrid',
-      'Beata',
-      'Beatrice',
-      'Birgit',
-      'Bjorg',
-      'Brita',
-      'Camilla',
-      'Carina',
-      'Carola',
-      'Cathrine',
-      'Cecilia',
-      'Charlotte',
-      'Cristine',
-      'Dorote',
-      'Ebba',
-      'Edit',
-      'Eira',
-      'Elin',
-      'Elisabeth',
-      'Ella',
-      'Elsa',
-      'Emma',
-      'Erika',
-      'Ester',
-      'Eva',
-      'Felicia',
-      'Frida',
-      'Froya',
-      'Gina'
-    ]
-  };
+angular.module('towns').factory('Person', [
+  'PopulationConfig', 'PersonDecider', 'Math', 'LocalMarket', 'Resources', 'PeopleNames',
+    function (PopulationConfig, PersonDecider, Math, LocalMarket, Resources, PeopleNames) {
 
   var _config = PopulationConfig;
 
@@ -127,7 +41,7 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
     this.sex = Math.random() > 0.5 ? 'male' : 'female';
     this.age = Math.round(Math.random() * 60);
     this.strength = Math.random() * 0.5 + 0.25;
-    this.name = [this.getRandomName(this.sex), this.getRandomName(this.sex)].join(' ');
+    this.name = PeopleNames.getRandomName(this.sex);
     this.childOf = {
       mother: mother,
       father: father
@@ -148,7 +62,7 @@ angular.module('towns').factory('Person', ['PopulationConfig', 'PersonDecider', 
   };
 
   Person.prototype.getRandomName = function (sex) {
-    return names[sex][Math.floor(Math.random() * names[sex].length)]
+    return PeopleNames[sex][Math.floor(Math.random() * PeopleNames[sex].length)]
   };
 
   Person.prototype.live = function () {
