@@ -7,9 +7,24 @@ angular.module('towns').factory('TravellerOffersList', [function () {
     this.offers = [];
   };
 
-  TravellerOffersList.prototype.offers = [];
+  TravellerOffersList.prototype.offers = null;
 
-  TravellerOffersList.prototype.removeOffer = function () {
+  TravellerOffersList.prototype.addOffer = function (offer) {
+    this.offers.push(offer);
+  };
+
+  TravellerOffersList.prototype.removeOffer = function (offer) {
+    var index = this.offers.indexOf(offer);
+    this.offers.splice(offer, 1);
+  };
+
+  TravellerOffersList.prototype.processTick = function () {
+    for (var i = this.offers.length - 1; i >= 0; i--) {
+      this.offers[i].turns_left -= 1;
+      if (this.offers[i].turns_left < 0) {
+        this.removeOffer(this.offers[i]);
+      }
+    }
   };
 
   var travellerOffersList = new TravellerOffersList();
@@ -18,7 +33,14 @@ angular.module('towns').factory('TravellerOffersList', [function () {
     getOffers: function () {
       return travellerOffersList.offers;
     },
-    removeOffer: function () {
+    addOffer: function (offer) {
+      return travellerOffersList.addOffer(offer);
+    },
+    removeOffer: function (offer) {
+      return travellerOffersList.removeOffer(offer);
+    },
+    processTick: function () {
+      return travellerOffersList.processTick();
 
     }
   };

@@ -1,0 +1,21 @@
+<div class="travellers-list" ng-init="_populationInit()">
+    <div class="travellers-list-rows">
+        <div class="travellers-list-row" ng-repeat="person in people"
+             ng-click="travellersListItemClicked(person)"
+             ng-class="{'selected': person == selected_person}">
+            <div class="travellers-list-cell person-name">{{ person.name }}</div>
+            <div class="travellers-list-cell int">{{ person.age }}</div>
+            <div class="travellers-list-cell int">{{ floatToPercents(person.happiness) }}</div>
+            <div class="travellers-list-cell int">{{ floatToPercents(person.health) }}</div>
+            <div class="travellers-list-cell int">{{ floatToPercents(person.needs.food) }}</div>
+            <div class="travellers-list-cell int">{{ floatToPercents(person.needs.clothing) }}</div>
+            <div class="travellers-list-cell int">{{ floatToPercents(person.needs.shelter) }}</div>
+            <div class="travellers-list-cell int">{{ floatToPercents(person.needs.work) }}</div>
+            <div class="travellers-list-cell int">{{ round(person.money) }}</div>
+            <div class="travellers-list-cell job-name">
+                {{ person.job.name || 'Idling' }}
+                ({{ floatToPercents(person.job.current_progress || 0) }}%)
+            </div>
+        </div>
+    </div>
+</div>

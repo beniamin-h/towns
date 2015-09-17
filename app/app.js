@@ -14,5 +14,6 @@ angular.module('towns', [
   'towns.resources_info',
   'towns.building_info',
   'towns.government_info',
-  'towns.environment_info'
+  'towns.environment_info',
+  'towns.travellers'
 ]);

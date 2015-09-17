@@ -1,47 +1,40 @@
 /**
  * Created by benek on 12/25/14.
  */
-angular.module('towns').factory('TravellerOffer', ['Math', 'Resources', 'TravellerOffersList',
-    function (Math, Resources, TravellerOffersList) {
+angular.module('towns').factory('TravellerOffer', ['Math', 'Resources',
+    function (Math, Resources) {
 
-  var TravellerOffer = function () {
-    this.travellerSells = this.generateOffer();
-    this.travellerBuys = this.generateOffer();
-    this.turnsLeft = Math.floor(Math.random() * 30) + 10;
+  var TravellerOffer = function (traveller) {
+    this.traveller = traveller;
+    this.turns_left = Math.floor(Math.random() * 30) + 10;
+    this.is_sale = Math.random() > 0.5;
+    this._generateOffer();
   };
 
-  TravellerOffer.prototype.travellerSells = null;
-  TravellerOffer.prototype.travellerBuys = null;
-  TravellerOffer.prototype.turnsLeft = 0;
+  TravellerOffer.prototype.traveller = null;
+  TravellerOffer.prototype.turns_left = 0;
+  TravellerOffer.prototype.is_sale = false;
+  TravellerOffer.prototype.subject = null;
+  TravellerOffer.prototype.price = 0;
 
-  TravellerOffer.prototype.generateOffer = function () {
-    if (Math.random() > 0.5) {
-      return {
+  TravellerOffer.prototype._generateOffer = function () {
+    if (this.traveller.type == 'scientist') {
+      this.subject = {
         type: 'technology',
-        subject: {
-          tech: ''
-        },
-        price: Math.floor(Math.random() * 10000)
+        name: '',
+        amount: 1
       };
+      this.price = Math.floor(Math.random() * 10000);
     } else {
       var res_name = Object.keys(Resources.getResourcesInfo())[
         Math.floor(Math.random() * Resources.getResourcesInfo().length)];
 
-      return {
+      this.subject = {
         type: 'resource',
-        subject: {
-          res_name: res_name,
-          res_amount: Math.floor(Math.random() * 100)
-        },
-        price: Math.floor(Math.random() * 100) / 10
+        name: res_name,
+        amount: Math.floor(Math.random() * 100)
       };
-    }
-  };
-
-  TravellerOffer.prototype.processTick = function () {
-    this.turnsLeft -= 1;
-    if (this.turnsLeft < 0) {
-      TravellerOffersList.removeOffer(this);
+      this.price = Math.floor(Math.random() * 100);
     }
   };
 

@@ -1,0 +1,68 @@
+/* app css stylesheet */
+
+.travellers-list {
+  width: 1000px;
+  height: 800px;
+  box-sizing: content-box;
+}
+
+.travellers-list-rows {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 1000px;
+  height: 700px;
+  box-sizing: content-box;
+}
+
+.travellers-list-row {
+  height: 45px;
+  border-top: 1px solid #ddd;
+  color: #444;
+  clear: both;
+}
+
+.travellers-list-row:hover {
+  color: #000;
+}
+
+.travellers-list-row:last-child {
+  border-bottom: 1px solid #ddd;
+}
+
+.travellers-list-row:hover + .travellers-list-row, .travellers-list-row:hover {
+  border-color: #bbb;
+}
+
+.travellers-list-row:hover + .travellers-list-row:last-child {
+  border-bottom-color: #ddd;
+}
+
+.travellers-list-row.selected {
+  background-color: #eee;
+}
+
+.travellers-list-row.selected, .travellers-list-row.selected + .travellers-list-row {
+  border-color: #bbb;
+}
+
+.travellers-list-cell {
+  margin-top: 12px;
+  float: left;
+}
+
+.travellers-list .person-name {
+  width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.travellers-list-cell.int {
+  width: 40px;
+  text-align: center;
+}
+
+.travellers-list-cell.job-name {
+  width: 200px;
+  text-align: right;
+}
+
